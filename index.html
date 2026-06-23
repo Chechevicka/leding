@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NGO Kosmos Tabir — Humanitarian Solar Solutions for Ukraine</title>
+  <meta name="description" content="Providing innovative mini solar power systems to residential households in de-occupied and frontline areas of Ukraine. Rewiring lives, one home at a time.">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="styles-v4.css">
+  
+  <!-- Favicon / SVG Logo -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%231a3c34%22/><path d=%22M50 20 L50 80 M20 50 L80 50 M28 28 L72 72 M28 72 L72 28%22 stroke=%22%23f7f6f2%22 stroke-width=%224%22/></svg>">
+  <meta property="og:title" content="NGO Kosmos Tabir — Humanitarian Solar Solutions for Ukraine">
+  <meta property="og:description" content="We restore electricity to homes the war left in the dark. Armoured solar panels for Ukraine's frontline communities.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/images/hero-bg.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preload" as="image" href="assets/images/hero-bg.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <noscript><style>.reveal{opacity:1;transform:none;}</style></noscript>
+</head>
+<body>
+
+  <!-- ==========================================================================
+     1. HEADER / NAVIGATION
+     ========================================================================== -->
+  <header class="header" id="header">
+    <div class="container nav-container">
+      <a href="#" class="logo-link">
+        <!-- SVG space/solar hybrid mark logo -->
+        <svg class="logo-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2" fill="none" opacity="0.3"/>
+          <circle cx="16" cy="16" r="8" fill="currentColor" />
+          <path d="M16 2v4M16 26v4M2 16h4M26 16h4M6.1 6.1l2.8 2.8M23.1 23.1l2.8 2.8M6.1 25.9l2.8-2.8M23.1 8.9l2.8-2.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M4 16 C 12 28, 20 28, 28 16" stroke="currentColor" stroke-width="1.5" fill="none" stroke-dasharray="2 2" />
+        </svg>
+        <span class="logo-text">Kosmos Tabir</span>
+      </a>
+
+      <nav class="nav-menu-wrapper">
+        <ul class="nav-menu">
+          <li><a href="#problem" class="nav-link" data-i18n="nav_problem">Problem</a></li>
+          <li><a href="#solution" class="nav-link" data-i18n="nav_solution">Solution</a></li>
+          <li><a href="#partners" class="nav-link" data-i18n="nav_partners">Partners</a></li>
+          <li><a href="#get-involved" class="nav-link" data-i18n="nav_get_involved">Get Involved</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Bilingual Toggle Button -->
+        <div class="lang-toggle" id="langToggle">
+          <span class="lang-btn active" id="lang-en">EN</span>
+          <span class="lang-btn" id="lang-ua">UA</span>
+        </div>
+        <button class="btn btn-primary open-cta-modal" data-i18n="nav_cta">Become a Partner</button>
+        <!-- Mobile hamburger -->
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+     2. HERO SECTION
+     ========================================================================== -->
+  <section class="hero" id="hero">
+    <div class="container hero-content">
+      <h1 data-i18n="hero_title">We restore electricity to homes the war left in the dark</h1>
+      <p class="hero-subhead" data-i18n="hero_subhead">
+        NGO Kosmos Tabir installs affordable solar energy systems in Ukrainian frontline settlements where the grid no longer exists. We’ve powered 400+ homes across the most heavily shelled regions — and we need EU partners to help us reach thousands more.
+      </p>
+      
+      <div class="hero-actions">
+        <button class="btn btn-primary open-cta-modal" data-tier="funding" data-i18n="hero_btn_primary">Become a partner</button>
+        <button class="btn btn-secondary open-cta-modal" data-tier="panels" data-i18n="hero_btn_secondary">Donate used solar panels</button>
+      </div>
+
+      <!-- Stat counters below hero headline -->
+      <div class="hero-stats">
+        <div class="stat-item reveal">
+          <span class="stat-number" id="stat-villages">—</span>
+          <span class="stat-label" data-i18n="hero_stat_1">Villages electrified</span>
+        </div>
+        <div class="stat-item reveal">
+          <span class="stat-number" id="stat-households">0+</span>
+          <span class="stat-label" data-i18n="hero_stat_2">Households powered</span>
+        </div>
+        <div class="stat-item reveal">
+          <span class="stat-number" id="stat-admin">0+</span>
+          <span class="stat-label" data-i18n="hero_stat_3">Admin buildings</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+     3. PROBLEM SECTION
+     ========================================================================== -->
+  <section class="problem reveal" id="problem">
+    <div class="container grid-2">
+      <div class="problem-text">
+        <h2 data-i18n="problem_title">War destroyed the grid. People are cut off.</h2>
+        <p data-i18n="problem_desc_1">
+          Relentless attacks on civil infrastructure have left vast frontline areas completely dark. Without grid electricity, everyday tasks become immediate threats to survival. Communication channels are severed, leaving families unable to call emergency services, access information, or connect with their loved ones.
+        </p>
+        <p data-i18n="problem_desc_2">
+          This isn't a temporary blackout; it is a systemic humanitarian crisis. Families are entering their third consecutive year without basic electrical power, forcing vulnerable individuals to live in isolation under constant combat conditions.
+        </p>
+        
+        <div class="pull-quote-card">
+          <blockquote class="pull-quote" data-i18n="problem_quote">
+            "In the Kherson region, over 26,000 households have had no electricity for almost three years."
+          </blockquote>
+          <cite class="quote-source" data-i18n="problem_source">Ministry of Energy of Ukraine, July 2024</cite>
+        </div>
+      </div>
+      
+      <!-- Interactive map of affected regions -->
+      <div class="problem-map-wrapper">
+        <img src="assets/images/map-ukraine.webp" alt="Map of Ukraine highlighting affected regions: Kherson, Zaporizhzhia, Donetsk, Kharkiv, Sumy, Chernihiv" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+     4. SOLUTION SECTION
+     ========================================================================== -->
+  <section class="solution alternate-bg reveal" id="solution">
+    <div class="container grid-2">
+      <div class="device-display">
+        <img src="assets/images/system-diagram.webp" alt="NGO Kosmos Tabir Mini Solar Power System infographic diagram showing solar panel input, smart power controller, and connected devices" loading="lazy">
+      </div>
+
+      <div class="solution-details">
+        <h2 data-i18n="solution_title">A $10 solar kit that works under shelling</h2>
+        <p data-i18n="solution_desc">
+          We engineered a resilient, ultra-low-cost voltage conversion system based on MPPT-like switching technology. Operating without expensive, heavy chemical batteries by default, it steps down unstable solar voltages direct from the sun to run everyday electronics safely.
+        </p>
+
+        <ul class="solution-list">
+          <li class="solution-item">
+            <!-- Wrench icon -->
+            <svg class="solution-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+            <div class="solution-item-text">
+              <h4 data-i18n="sol_feat_1_title">Works with any panel</h4>
+              <p data-i18n="sol_feat_1_desc">A wide 18V–60V input range allows it to function even with heavily cracked, used, or shrapnel-shot solar panels.</p>
+            </div>
+          </li>
+          
+          <li class="solution-item">
+            <!-- Battery icon -->
+            <svg class="solution-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+            <div class="solution-item-text">
+              <h4 data-i18n="sol_feat_2_title">4 USB outputs</h4>
+              <p data-i18n="sol_feat_2_desc">Provides 3×5V 1-2A outputs and 1×9-12V auto-detect output to charge smartphones, routers, power banks, tools, and walkie-talkies.</p>
+            </div>
+          </li>
+          
+          <li class="solution-item">
+            <!-- Cable/Connection icon -->
+            <svg class="solution-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+            </svg>
+            <div class="solution-item-text">
+              <h4 data-i18n="sol_feat_3_title">10m outdoor heavy cable</h4>
+              <p data-i18n="sol_feat_3_desc">Equipped with standard water-resistant MC4 connectors, enabling panels to remain safely mounted outside while devices charge inside.</p>
+            </div>
+          </li>
+          
+          <li class="solution-item">
+            <!-- Shield check icon -->
+            <svg class="solution-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+            <div class="solution-item-text">
+              <h4 data-i18n="sol_feat_4_title">Simple & Field-Stable</h4>
+              <p data-i18n="sol_feat_4_desc">No technical expertise needed—perfectly intuitive for both elderly citizens and young children, tested stable in heavy combat areas.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+     5. PROOF SECTION ("Field-tested under fire")
+     ========================================================================== -->
+  <section class="proof-section" id="proof">
+    <div class="container proof-showcase reveal">
+      <div class="proof-image-box">
+        <div class="proof-main-img-container">
+          <img id="proofMainImg" src="assets/images/shrapnel-panel-detail-1.webp" alt="Shrapnel-damaged solar panel in Beryslav district Ukrainian village" loading="lazy">
+        </div>
+        <div class="proof-gallery">
+          <div class="proof-thumb active" data-src="assets/images/shrapnel-panel-detail-1.webp">
+            <img src="assets/images/shrapnel-panel-detail-1.webp" alt="Shrapnel detail view 1">
+          </div>
+          <div class="proof-thumb" data-src="assets/images/shrapnel-panel-detail-2.webp">
+            <img src="assets/images/shrapnel-panel-detail-2.webp" alt="Shrapnel detail view 2">
+          </div>
+          <div class="proof-thumb" data-src="assets/images/shrapnel-panel-detail-3.webp">
+            <img src="assets/images/shrapnel-panel-detail-3.webp" alt="Shrapnel detail view 3">
+          </div>
+          <div class="proof-thumb" data-src="assets/images/gunshot-panel.webp">
+            <img src="assets/images/gunshot-panel.webp" alt="Gunshot panel view">
+          </div>
+        </div>
+        <div class="proof-caption" data-i18n="proof_caption">
+          Two weeks after installation in Beryslav district, a guided aerial bomb detonated nearby. The solar panel suffered multiple shrapnel holes, yet the internal system remained completely intact and continued to provide vital electrical power to charge communication tools.
+        </div>
+      </div>
+
+      <div class="proof-details">
+        <span class="proof-badge" data-i18n="proof_badge">Verified Case Study</span>
+        <h2 data-i18n="proof_title">Field-tested under fire</h2>
+        <p class="proof-text" data-i18n="proof_desc">
+          Modern warfare demands rugged, decentralized infrastructure. Our installations in the daily shelled Beryslav area have proven that low-voltage grid-free solar is virtually indestructible compared to central stations. When a panel takes shrapnel, it loses partial surface area but continues generating enough current to sustain a household's basic lifeline.
+        </p>
+
+        <!-- Secondary stat row -->
+        <div class="proof-stats">
+          <div class="proof-stat-item">
+            <span class="proof-stat-val">4</span>
+            <span class="proof-stat-lbl" data-i18n="proof_stat_1">Missions completed</span>
+          </div>
+          <div class="proof-stat-item">
+            <span class="proof-stat-val" data-i18n="proof_stat_2_val">Beryslav</span>
+            <span class="proof-stat-lbl" data-i18n="proof_stat_2_lbl">Primary active area</span>
+          </div>
+          <div class="proof-stat-item">
+            <span class="proof-stat-val" data-i18n="proof_stat_3_val">Daily</span>
+            <span class="proof-stat-lbl" data-i18n="proof_stat_3_lbl">Shelling zone stability</span>
+          </div>
+          <div class="proof-stat-item">
+            <span class="proof-stat-val" data-i18n="proof_stat_4_val">100%</span>
+            <span class="proof-stat-lbl" data-i18n="proof_stat_4_lbl">System survival rate</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+     6. EUROPEAN PARTNERSHIP ANGLE
+     ========================================================================== -->
+  <section class="recycling reveal" id="recycling-angle">
+    <div class="container grid-2">
+      <div class="recycling-copy">
+        <h2 data-i18n="euro_title">Europe's solar waste is Ukraine's lifeline</h2>
+        <p data-i18n="euro_desc_1">
+          The European Union is facing a monumental solar panel recycling challenge. Millions of decommissioned, slightly worn, or cosmetically damaged panels are discarded yearly because recycling them is cost-prohibitive. They sit in warehouses or are exported outside EU borders as waste.
+        </p>
+        <p data-i18n="euro_desc_2">
+          We offer a clean, circular economy alternative: <strong>donating these panels directly to frontline Ukrainian villages</strong>. For a household left in the dark, a panel with 80% remaining efficiency isn't waste—it is the difference between contacting a doctor and total isolation.
+        </p>
+        
+        <div class="reframe-card">
+          <h4 data-i18n="euro_reframe_title">A Second Life for Clean Tech</h4>
+          <p data-i18n="euro_reframe_desc">Redirecting retired solar modules to humanitarian campaigns prevents carbon-heavy recycling processes, cuts warehouse storage fees, and provides immediate emergency energy to families surviving the winter.</p>
+        </div>
+      </div>
+
+      <div class="recycling-visual">
+        <div class="recycling-comparison">
+          <div class="comparison-card">
+            <img src="assets/images/eu-recycling.webp" alt="Decommissioned solar panels stored in a massive European warehouse" loading="lazy">
+            <div class="comparison-label" data-i18n="euro_comp_left">EU Warehouse: Costly Storage</div>
+          </div>
+          <div class="comparison-card">
+            <img src="assets/images/eu-waste.webp" alt="Used solar panel serving as a lifeline on a frontline Ukrainian household rooftop" loading="lazy">
+            <div class="comparison-label" data-i18n="euro_comp_right">Frontline: Lifeline Energy</div>
+          </div>
+        </div>
+        <div style="margin-top: 2rem; text-align: left;">
+          <button class="btn btn-primary open-cta-modal" data-tier="panels" data-i18n="euro_cta">Partner to ship used panels</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==========================================================================
+     8. INSTITUTIONAL CREDIBILITY
+     ========================================================================== -->
+  <section class="credibility-section reveal" id="partners">
+    <div class="container">
+      <div class="credibility-header">
+        <h2 data-i18n="cred_title">Working with Ukrainian State Institutions</h2>
+        <p class="credibility-sub" data-i18n="cred_sub">Our humanitarian operations and cargo shipping lines are planned and executed in close coordination with Ukrainian regional administrations and government offices.</p>
+      </div>
+
+      <div class="partners-logos-grid">
+        <div class="logo-item">
+          <img src="assets/logos/partner-energy.webp" alt="Razom for Ukraine">
+          <span class="logo-tooltip" data-i18n="partner_energy">Razom for Ukraine</span>
+        </div>
+        <div class="logo-item">
+          <img src="assets/logos/partner-kherson.webp" alt="Kherson Regional State Administration">
+          <span class="logo-tooltip" data-i18n="partner_kherson">Kherson Regional State Administration</span>
+        </div>
+        <div class="logo-item">
+          <img src="assets/logos/partner-kharkiv.webp" alt="Kharkiv Regional State Administration">
+          <span class="logo-tooltip" data-i18n="partner_kharkiv">Kharkiv Regional State Administration</span>
+        </div>
+        <div class="logo-item">
+          <img src="assets/logos/partner-president.webp" alt="Office of the President of Ukraine">
+          <span class="logo-tooltip" data-i18n="partner_president">Office of the President of Ukraine</span>
+        </div>
+        <div class="logo-item logo-item--external">
+          <a href="https://www.danchurchaid.org/" target="_blank" rel="noopener" aria-label="DCA — Dan Church Aid">
+            <img src="assets/logos/partner-dca.svg" alt="DCA — Dan Church Aid">
+          </a>
+          <span class="logo-tooltip" data-i18n="partner_dca">DCA — Dan Church Aid</span>
+        </div>
+        <div class="logo-item logo-item--external">
+          <a href="https://www.cufoundation.ca/" target="_blank" rel="noopener" aria-label="CUF — Canada Ukraine Foundation">
+            <img src="assets/logos/partner-cuf.svg" alt="CUF — Canada Ukraine Foundation">
+          </a>
+          <span class="logo-tooltip" data-i18n="partner_cuf">CUF — Canada Ukraine Foundation</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+     9. PARTNERSHIP TIERS (Get Involved)
+     ========================================================================== -->
+  <section class="tiers reveal" id="get-involved">
+    <div class="container">
+      <div class="tiers-intro">
+        <h2 style="text-align: center; margin-bottom: 1rem;" data-i18n="tiers_title">Four ways to partner with us</h2>
+        <p style="text-align: center; margin: 0 auto;" data-i18n="tiers_sub">Every form of support — financial, material, or logistical — directly translates into households with electricity in the most dangerous areas of Europe.</p>
+      </div>
+
+      <div class="tiers-grid">
+        <!-- Card 1: Fund Installations -->
+        <div class="tier-card">
+          <div class="tier-card-content">
+            <div class="tier-header-row">
+              <!-- Dollar/Hand icon -->
+              <svg class="tier-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <h3 data-i18n="tier_1_title">Fund the Campaign</h3>
+            </div>
+            <p data-i18n="tier_1_desc">Financial grants or donations to scale assembly, procurement, outreach, and field deployment. Each household solar kit costs just $10–$12 to produce and install.</p>
+            <div class="tier-img-preview">
+              <img src="assets/images/tier-equipment.webp" alt="Financial support for solar kit assembly in Ukraine" loading="lazy">
+            </div>
+          </div>
+          <button class="btn btn-secondary open-cta-modal" data-tier="funding" data-i18n="tier_1_btn">Submit Funding Inquiry</button>
+        </div>
+
+        <!-- Card 2: Donate Panels -->
+        <div class="tier-card">
+          <div class="tier-card-content">
+            <div class="tier-header-row">
+              <!-- Solar Panel icon -->
+              <svg class="tier-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+              </svg>
+              <h3 data-i18n="tier_2_title">Donate Solar Panels</h3>
+            </div>
+            <p data-i18n="tier_2_desc">Used or decommissioned panels with 80%+ remaining efficiency. Cracked panels accepted (up to 10-20% of a batch). Min. 200W capacity. We coordinate customs clearance and seek logistics partners to help with transport.</p>
+            <div class="tier-img-preview">
+              <img src="assets/images/tier-solar.webp" alt="Donation of used and slightly damaged solar panels" loading="lazy">
+            </div>
+          </div>
+          <button class="btn btn-secondary open-cta-modal" data-tier="panels" data-i18n="tier_2_btn">Donate Panels</button>
+        </div>
+
+        <!-- Card 3: Donate Vehicles -->
+        <div class="tier-card">
+          <div class="tier-card-content">
+            <div class="tier-header-row">
+              <!-- Truck/Van icon -->
+              <svg class="tier-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h4M5 17h2m10 0h2"/>
+              </svg>
+              <h3 data-i18n="tier_3_title">Donate Transport Vehicles</h3>
+            </div>
+            <p data-i18n="tier_3_desc">We need large trucks with trailers (Euro 5-6) for EU–Ukraine routes, and vans (1.5–3t, Euro 4+) for regional deliveries. Cosmetic condition doesn't matter — technical reliability does.</p>
+            <div class="tier-img-preview">
+              <img src="assets/images/tier-funding.webp" alt="Utility vehicles and trucks for frontline solar installations" loading="lazy">
+            </div>
+          </div>
+          <button class="btn btn-secondary open-cta-modal" data-tier="vehicles" data-i18n="tier_3_btn">Offer Vehicles</button>
+        </div>
+
+        <!-- Card 4: Donate Equipment -->
+        <div class="tier-card">
+          <div class="tier-card-content">
+            <div class="tier-header-row">
+              <!-- Wrench/Cables icon -->
+              <svg class="tier-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.907c.961 0 1.36 1.246.588 1.81l-3.97 2.883a1 1 0 00-.364 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.971-2.883a1 1 0 00-1.176 0l-3.97 2.883c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.364-1.118L2.49 10.1c-.773-.564-.373-1.81.588-1.81h4.906a1 1 0 00.951-.69l1.519-4.674z"/>
+              </svg>
+              <h3 data-i18n="tier_4_title">Donate Solar Equipment</h3>
+            </div>
+            <p data-i18n="tier_4_desc">Solar mounting structures, MC4 cables, crimping tools, and pure sine wave inverters. New or used — everything reaches the field.</p>
+            <div class="tier-img-preview">
+              <img src="assets/images/tier-vehicle.webp" alt="Solar inverters, cables, mounting hardware and tools" loading="lazy">
+            </div>
+          </div>
+          <button class="btn btn-secondary open-cta-modal" data-tier="equipment" data-i18n="tier_4_btn">Offer Equipment</button>
+        </div>
+
+        <!-- Card 5: Education Programme -->
+        <div class="tier-card tier-card--edu">
+          <div class="tier-card-content">
+            <div class="tier-header-row">
+              <!-- Graduation cap icon -->
+              <svg class="tier-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+              </svg>
+              <h3 data-i18n="tier_5_title">Support an Education Programme</h3>
+            </div>
+            <p data-i18n="tier_5_desc">Fund a renewable energy training course for one frontline region: Donetsk, Kharkiv, Dnipropetrovsk, Kherson, Zaporizhzhia, Sumy, or Chernihiv. Local capacity building that outlasts any single installation.</p>
+            <div class="tier-img-preview tier-img-preview--edu">
+              <div class="edu-regions">
+                <span>Donetsk</span><span>Kharkiv</span><span>Dnipropetrovsk</span>
+                <span>Kherson</span><span>Zaporizhzhia</span><span>Sumy</span><span>Chernihiv</span>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-secondary open-cta-modal" data-tier="education" data-i18n="tier_5_btn">Support Education</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+     10. ABOUT / ORIGIN STORY
+     ========================================================================== -->
+  <section class="about reveal" id="about">
+    <div class="container-narrow">
+      <div class="about-banner">
+        <img src="assets/images/gogoltrain-creative.webp" alt="Kosmos Tabir creative community on cultural trip to Kherson region in 2020 via GogolTrain" loading="lazy">
+      </div>
+      
+      <div class="about-content">
+        <blockquote class="about-quote" data-i18n="about_quote">
+          "We started as a creative community. We turned into humanitarian innovators."
+        </blockquote>
+        <p data-i18n="about_desc">
+          In 2020, our group launched cultural and art expeditions to the Kherson region by rail, mapping connections on the historic GogolTrain. When full-scale invasion devastated these exact territories, our local community pivoted. We took our technical design skills and channelled them into developing high-resiliency solar lifelines to support the very communities that once welcomed us.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+     11. FOOTER
+     ========================================================================== -->
+  <footer class="footer">
+    <div class="container footer-top">
+      <div class="footer-brand">
+        <div class="logo-link">
+          <svg class="logo-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2" fill="none" opacity="0.3"/>
+            <circle cx="16" cy="16" r="8" fill="currentColor"/>
+            <path d="M16 2v4M16 26v4M2 16h4M26 16h4M6.1 6.1l2.8 2.8M23.1 23.1l2.8 2.8M6.1 25.9l2.8-2.8M23.1 8.9l2.8-2.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M4 16 C 12 28, 20 28, 28 16" stroke="currentColor" stroke-width="1.5" fill="none" stroke-dasharray="2 2"/>
+          </svg>
+          <span class="logo-text">Kosmos Tabir</span>
+        </div>
+        <p data-i18n="footer_brand_sub">Resilient decentralized solar power for communities enduring active conflict zones across Ukraine.</p>
+        
+        <div class="footer-socials">
+          <a href="javascript:void(0)" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
+          </a>
+          <a href="javascript:void(0)" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051C.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          </a>
+          <a href="javascript:void(0)" target="_blank" rel="noopener" class="social-link" aria-label="Telegram">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M20.665 3.717l-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42 10.532-6.645c.498-.303.953-.14.578.192l-8.533 7.701-.33 4.955c.488 0 .702-.223.974-.488l2.338-2.275 4.866 3.59c.898.496 1.543.24 1.768-.83l3.19-15.03c.328-1.315-.502-1.91-1.361-1.514z"/></svg>
+          </a>
+          <a href="javascript:void(0)" target="_blank" rel="noopener" class="social-link" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/company/71023070/" target="_blank" class="social-link" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </a>
+          <a href="https://ngo.kosmostabir.org" target="_blank" class="social-link" aria-label="Website">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-nav">
+        <h4 data-i18n="footer_nav_title">Navigation</h4>
+        <a href="#problem" class="footer-nav-link" data-i18n="nav_problem">Problem</a>
+        <a href="#solution" class="footer-nav-link" data-i18n="nav_solution">Solution</a>
+        <a href="#partners" class="footer-nav-link" data-i18n="nav_partners">Partners</a>
+        <a href="#get-involved" class="footer-nav-link" data-i18n="nav_get_involved">Get Involved</a>
+      </div>
+
+      <div class="footer-contacts">
+        <h4 data-i18n="footer_contact_title">Contact NGO</h4>
+        <div class="contact-item">
+          <!-- Mail icon -->
+          <svg class="contact-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          <a href="mailto:denny@kosmostabir.org">denny@kosmostabir.org</a>
+        </div>
+        <div class="contact-item">
+          <!-- Phone icon -->
+          <svg class="contact-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+          </svg>
+          <a href="tel:+380633377966">+380 63 337 7966</a>
+        </div>
+        <div class="contact-item">
+          <!-- Map pin icon -->
+          <svg class="contact-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <span data-i18n="footer_addr">47-B Kyrylivska street, Kyiv, 04080</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>&copy; 2026 NGO Kosmos Tabir. <span data-i18n="footer_all_rights">All rights reserved.</span></p>
+      <p data-i18n="footer_reg">NGO Registration: 4377008447</p>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+     12. INTERACTIVE PARTNERSHIP MODAL
+     ========================================================================== -->
+  <div class="modal-overlay" id="ctaModal">
+    <div class="modal-card">
+      <button class="modal-close" id="modalClose" aria-label="Close modal">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+      
+      <div id="modalFormContainer">
+        <h2 id="modalTitle" data-i18n="modal_title">Become a Partner</h2>
+        <p class="modal-subtitle" id="modalSubtitle" data-i18n="modal_sub">Fill out the quick form below and our innovation team will contact you directly within 24 hours.</p>
+        
+        <form class="modal-form" id="partnerForm">
+          <input type="hidden" name="tier" id="partnerTierInput" value="general">
+          
+          <div class="form-group">
+            <label for="form-name" data-i18n="form_lbl_name">Contact Name</label>
+            <input type="text" id="form-name" placeholder="Nazar Botvynko" required>
+          </div>
+
+          <div class="form-group">
+            <label for="form-org" data-i18n="form_lbl_org">Organization / Company</label>
+            <input type="text" id="form-org" placeholder="e.g. EU Solar Alliance" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="form-email" data-i18n="form_lbl_email">Email Address</label>
+            <input type="email" id="form-email" placeholder="partner@domain.org" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="form-type" data-i18n="form_lbl_type">Partnership Type</label>
+            <select id="form-type" required>
+              <option value="general" data-i18n="form_opt_gen">General Institutional Cooperation</option>
+              <option value="funding" data-i18n="form_opt_fund">Financial Support / Grant</option>
+              <option value="panels" data-i18n="form_opt_panel">Donate Solar Panels (min 200W, 80%+ efficiency)</option>
+              <option value="vehicles" data-i18n="form_opt_veh">Donate Transport Vehicles (trucks / vans)</option>
+              <option value="equipment" data-i18n="form_opt_equip">Donate Solar Equipment &amp; Mounting Gear</option>
+              <option value="education" data-i18n="form_opt_edu">Support Education Programme</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="form-message" data-i18n="form_lbl_msg">Brief Proposal / Logistics Notes</label>
+            <textarea id="form-message" rows="4" placeholder="How would you like to cooperate? (Capacity, logistics, timing details...)" required></textarea>
+          </div>
+          
+          <button type="submit" class="btn btn-primary" data-i18n="form_btn_submit">Submit Inquiry</button>
+        </form>
+      </div>
+
+      <!-- Success Screen inside Modal -->
+      <div id="modalSuccessContainer" class="form-success-message">
+        <svg class="form-success-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"/>
+        </svg>
+        <h2 data-i18n="form_success_title">Inquiry Submitted</h2>
+        <p data-i18n="form_success_desc">Thank you. Your proposal has been securely transmitted to NGO Kosmos Tabir's humanitarian innovation branch in Kyiv. Nazar Botvynko or a regional director will get in touch with you shortly.</p>
+        <button class="btn btn-primary" id="successCloseBtn" data-i18n="form_success_close">Close Window</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Interaction Logic -->
+  <script src="app.js?v=2.4"></script>
+</body>
+</html>

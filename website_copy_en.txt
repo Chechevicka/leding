@@ -1,0 +1,282 @@
+=== NGO KOSMOS TABIR — LANDING PAGE COPYWRITING ORIGINAL (ENGLISH) ===
+
+=== 1. HEADER & NAVIGATION ===
+[nav_problem]
+    The Problem
+
+[nav_solution]
+    Our Solution
+
+[nav_partners]
+    Partners
+
+[nav_get_involved]
+    Get Involved
+
+[nav_cta]
+    Become a Partner
+
+
+=== 2. HERO SECTION (FIRST SCREEN) ===
+[hero_title]
+    We restore electricity to homes the war left in the dark
+
+[hero_subhead]
+    NGO Kosmos Tabir installs affordable solar energy systems in Ukrainian frontline settlements where the grid no longer exists. We’ve powered 400+ homes across the most heavily shelled regions — and we need EU partners to help us reach thousands more.
+
+[hero_btn_primary]
+    Become a partner
+
+[hero_btn_secondary]
+    Donate used solar panels
+
+[hero_stat_1]
+    Settlements without power
+
+[hero_stat_2]
+    Households we’ve powered
+
+[hero_stat_3]
+    Cost per household kit
+
+
+=== 3. THE PROBLEM SECTION ===
+[problem_title]
+    475 Ukrainian settlements have no electricity. Some for three years.
+
+[problem_desc_1]
+    Sustained attacks on power infrastructure have left entire frontline communities permanently cut off from the grid. There is no power to charge a phone, run a medical device, or keep a router alive. Families cannot call emergency services. The elderly cannot signal for help. Children do their homework by candlelight — if they have candles.
+
+[problem_desc_2]
+    The grid cannot be rebuilt under active shelling — centralized infrastructure is a target, and every repair gets destroyed again. The only viable path is decentralized: off-grid, home by home, built to survive.
+
+[problem_quote]
+    “In the Kherson region, over 26,000 households have had no electricity for almost three years.”
+
+[problem_source]
+    Ministry of Energy of Ukraine, July 2024
+
+
+=== 4. OUR SOLUTION SECTION ===
+[solution_title]
+    A $10 solar converter — engineered for survival
+
+[solution_desc]
+    We design and produce a rugged, ultra-affordable voltage converter that works directly from any solar panel — no heavy batteries required. It takes raw, unstable solar input and delivers clean, stable USB power to charge phones, satellite routers, walkie-talkies, and medical equipment.
+
+[sol_feat_1_title]
+    Works with any panel
+
+[sol_feat_1_desc]
+    Wide 18V–60V input range — functions reliably with cracked, used, aged, or shrapnel-damaged panels. If it generates voltage, we can use it.
+
+[sol_feat_2_title]
+    4 simultaneous USB outputs
+
+[sol_feat_2_desc]
+    3×5V for smartphones and routers, plus 1×9-12V auto-detect for power banks, walkie-talkies, and tools — the whole household charges at once.
+
+[sol_feat_3_title]
+    10m weatherproof outdoor cable
+
+[sol_feat_3_desc]
+    Standard MC4 connectors — the panel mounts safely on the roof or wall outside, while the converter and all devices stay protected indoors.
+
+[sol_feat_4_title]
+    No training required
+
+[sol_feat_4_desc]
+    Designed to be used by elderly people and children with zero technical knowledge. Plug-and-play, tested stable in active combat zones.
+
+
+=== 5. PROOF SECTION (FIELD-TESTED UNDER FIRE) ===
+[proof_badge]
+    Verified Field Case
+
+[proof_title]
+    Even a shrapnel-hit panel keeps working
+
+[proof_desc]
+    Our decentralized approach means there is no single point of failure. A damaged panel loses surface area but keeps generating current. When the Beryslav installation survived a nearby bomb strike with zero downtime, it confirmed what we already knew: small, distributed, off-grid solar is more resilient than any centralized power station in a war zone.
+
+[proof_caption]
+    Two weeks after installation in Beryslav district, a guided bomb detonated nearby. The panel took multiple shrapnel hits — the converter inside kept running without interruption, charging phones and communication tools throughout.
+
+[proof_stat_1]
+    Field missions
+
+[proof_stat_2_val]
+    Beryslav
+
+[proof_stat_2_lbl]
+    Primary mission zone
+
+[proof_stat_3_val]
+    Daily
+
+[proof_stat_3_lbl]
+    Shelling intensity
+
+[proof_stat_4_val]
+    100%
+
+[proof_stat_4_lbl]
+    System survival rate
+
+
+=== 6. EU RECYCLING & SECOND LIFE SECTION ===
+[euro_title]
+    Your decommissioned solar panels are a lifeline here
+
+[euro_desc_1]
+    Every year, millions of solar panels are taken out of service across Europe — slightly worn, cosmetically cracked, or simply replaced by newer models. Recycling them is expensive. Many sit in warehouses for years or get shipped overseas as waste.
+
+[euro_desc_2]
+    For a family in a frontline village with no grid, a panel at 80% efficiency isn’t “old technology” — it’s the only source of power they’ll have. We accept panels from 200W with 80%+ remaining efficiency. Cracked is fine — up to 10-20% of a batch. We can coordinate customs clearance, but we seek logistics partners to help with transport.
+
+[euro_reframe_title]
+    No storage costs. No recycling fees. Real humanitarian impact.
+
+[euro_reframe_desc]
+    Donating your decommissioned panels to Kosmos Tabir means they power real homes instead of sitting in a warehouse. You get a documented humanitarian use case — we get the panels to the families who need them most.
+
+[euro_comp_left]
+    EU Warehouse: Storage cost, no use
+
+[euro_comp_right]
+    Frontline Home: Power, connection, survival
+
+[euro_cta]
+    Partner to transfer used panels
+
+
+=== 7. INSTITUTIONAL CREDIBILITY SECTION ===
+[cred_title]
+    Coordinated with Ukrainian state institutions
+
+[cred_sub]
+    Every mission is planned and executed in direct coordination with regional military administrations and Ukrainian government offices. Our logistics corridors are authorized, documented, and tracked.
+
+
+=== 8. PARTNERSHIP TIERS (GET INVOLVED) ===
+[tiers_title]
+    Four ways to partner with us
+
+[tiers_sub]
+    Every form of support — financial, material, or logistical — directly translates into households with electricity in the most dangerous areas of Europe.
+
+[tier_1_title]
+    Fund the Mission
+
+[tier_1_desc]
+    Each kit costs $10–$12 to produce and install. A grant of $1,000 powers 80–100 families. Funding covers kit production, field procurement, and on-site deployment by our teams.
+
+[tier_1_btn]
+    Submit Funding Inquiry
+
+[tier_2_title]
+    Donate Solar Panels
+
+[tier_2_desc]
+    Decommissioned or used panels, min. 200W, 80%+ remaining efficiency. Cracked panels accepted — up to 10-20% of a batch. We coordinate customs clearance and seek logistics partners to help with transport to Ukraine.
+
+[tier_2_btn]
+    Donate Panels
+
+[tier_3_title]
+    Donate Transport Vehicles
+
+[tier_3_desc]
+    Heavy trucks with trailers (Euro 5-6) for EU–Ukraine cargo runs, and vans 1.5–3t (Euro 4+) for in-country delivery to frontline areas. Cosmetic damage doesn’t matter — working mechanically is everything.
+
+[tier_3_btn]
+    Offer Vehicles
+
+[tier_4_title]
+    Donate Equipment
+
+[tier_4_desc]
+    Solar mounting structures, MC4 cables, crimping tools, pure sine inverters, and LiFePo4 batteries (60%+ capacity). New or used — everything reaches the field.
+
+[tier_4_btn]
+    Offer Equipment
+
+
+=== 9. ABOUT / ORIGIN STORY ===
+[about_quote]
+    “We started as a creative community. War turned us into humanitarian engineers.”
+
+[about_desc]
+    In 2020, we organized cultural rail expeditions to the Kherson region — the GogolTrain project, connecting artists and communities across Ukraine. When the full-scale invasion devastated those exact places, we didn’t walk away. We redirected everything into building solar infrastructure for the communities we knew personally. That is how Kosmos Tabir became a humanitarian organization.
+
+
+=== 10. FOOTER SECTION ===
+[footer_brand_sub]
+    Decentralized solar power for Ukrainian households in active frontline and de-occupied zones.
+
+[footer_nav_title]
+    Navigation
+
+[footer_contact_title]
+    Contact NGO
+
+[footer_addr]
+    47-B Kyrylivska street, Kyiv, 04080
+
+[footer_all_rights]
+    All rights reserved.
+
+[footer_reg]
+    NGO Registration: 4377008447
+
+
+=== 11. INTERACTIVE PARTNERSHIP MODAL ===
+[modal_title]
+    Become a Partner
+
+[modal_sub]
+    Fill out the form below and our team will contact you within 24 hours to discuss next steps.
+
+[form_lbl_name]
+    Contact Name
+
+[form_lbl_org]
+    Organization / Company
+
+[form_lbl_email]
+    Email Address
+
+[form_lbl_type]
+    How you'd like to help
+
+[form_opt_gen]
+    General Institutional Cooperation
+
+[form_opt_fund]
+    Financial Support / Grant
+
+[form_opt_panel]
+    Donate Solar Panels (min 200W, 80%+ efficiency)
+
+[form_opt_veh]
+    Donate Transport Vehicles (trucks / vans)
+
+[form_opt_equip]
+    Donate Solar Equipment & Mounting Gear
+
+[form_lbl_msg]
+    Tell us what you can offer — capacity, location, timeline
+
+[form_btn_submit]
+    Submit Inquiry
+
+[form_success_title]
+    Inquiry Submitted
+
+[form_success_desc]
+    Thank you. Your message has been sent to NGO Kosmos Tabir’s team in Kyiv. Nazar Botvynko will follow up with you directly within 24 hours.
+
+[form_success_close]
+    Close Window
+
+

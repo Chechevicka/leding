@@ -1,0 +1,13 @@
+<svg width="200" height="80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80">
+  <!-- Blue/gold CUF branding -->
+  <rect width="200" height="80" fill="none"/>
+  <!-- Left maple-leaf inspired accent bar -->
+  <rect x="0" y="10" width="5" height="60" rx="2" fill="#0055A4"/>
+  <!-- CUF text -->
+  <text x="16" y="38" font-family="Georgia, 'Times New Roman', serif" font-size="28" font-weight="700" letter-spacing="2" fill="#0055A4">CUF</text>
+  <!-- Full name -->
+  <text x="16" y="56" font-family="Arial, sans-serif" font-size="9.5" font-weight="400" fill="#333" letter-spacing="0.3">Canada Ukraine Foundation</text>
+  <!-- Yellow-blue flag stripe -->
+  <rect x="16" y="62" width="80" height="2.5" rx="1" fill="#FFD700"/>
+  <rect x="16" y="65" width="80" height="2.5" rx="1" fill="#0055A4"/>
+</svg>

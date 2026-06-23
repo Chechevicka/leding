@@ -1,0 +1,211 @@
+--- PAGE 1 ---
+NGO “KOSMOS TABIR”
+Registration number: 43770084
+47-B Kyrylivska street, Kyiv city, 04080 
++380633377966 
+denny@kosmostabir.org 
+NGO “Kosmos Tabir” 
+innovation humanitarian solution
+Mini Solar Power System for 
+de-occupied areas in Ukraine
+"Mini Solar Power Plants” is an innovative solution developed by 
+NGO “Kosmos Tabir”. 
+The main idea and goal is to equip all residential houses and 
+administrative buildings with mini solar power stations, allowing 
+devices to be charged for free, even without sunlight, at 5-12V. This 
+includes smartphones, tablets, Wi-Fi routers, ﬂashlights, power 
+banks, construction tools, walkie-talkies, and other equipment
+ 
+--- PAGE 2 ---
+Problematic:
+In Ukraine, as a result of ongoing combat, over 475 
+settlements* have been left without power, with most 
+remaining continuously without electricity. This 
+affects tens of thousands of households in the 
+Kherson, Zaporizhzhia, Donetsk, Kharkiv, Sumy, and 
+Chernihiv regions. People cannot contact their loved 
+ones or doctors, and children are unable to receive an 
+education.
+This situation presents a signiﬁcant challenge to the 
+humanitarian sector as a consequence of modern 
+warfare, with the potential for similar situations to 
+spread globally.
+For example, in the Kherson region, more than 26,000 
+households* remain consistently without electricity, 
+with the majority having been without power for 
+nearly three years.
+*Data from the Ministry of Energy of Ukraine - July 
+2024
+--- PAGE 3 ---
+Kherson region 
+Up to 26,000 households with no electricity for almost 3 years
+*Data from the Ministry of Energy of Ukraine - July 2024
+
+--- PAGE 4 ---
+At NGO “Kosmos Tabir” in the past year we have made 4 humanitarian missions to Kherson region, mostly Beryslav area — critical area which are shelled daily and have no electrical power
+--- PAGE 5 ---
+Іnstalled in the 
+Berislav district:
+30 small (0.5 kWt) 
+batteries + solar 
+station - one per 
+village
+400 Mini Solar 
+Power Plants - one 
+per household
+
+--- PAGE 6 ---
+400 Mini Solar 
+Power Plants - 
+one per 
+household
+Source in Facebook 
+--- PAGE 7 ---
+Just two week after we delivered our mini solar system, 
+community center in the village of Beryslav area was hit by 
+shrapnel from russian guided bomb that exploded near it
+Our system still work ﬁne, even after bomb explosion near, 
+solar panel was hit by shrapnels, but still works 
+and charging phones and building instruments 
+for fast renovation
+So our system is stable and efﬁcient 
+near the front line, that’s why we call it
+an innovation humanitarian solution
+Source:
+Web page 
+Kherson region
+administration
+End of August 2024
+NGO Kosmos Tabir
+End of August 2024
+NGO Kosmos Tabir
+Beginning of September 2024
+khoda.gov.ua
+--- PAGE 8 ---
+For more than a year installing and testing 
+it, we ﬁnally created innovative solar 
+solution that we plan to give to every living 
+household that was affected by war and 
+needs electricity
+--- PAGE 9 ---
+What is mini Solar Power System and it works ?
+Mini solar power system is built in similar to MPPT technology. It has inductor, capacitors, and 
+switching components (like MOSFET). These converters adjust the input voltage to a desired output 
+voltage efﬁciently. Difference that our system stabilise voltage for 5v/12v and 1-2A.
+It have 4 USB outputs, 3 for 5v, 1-2A and 1 for 9-12v (automatic identiﬁcation) 
+It goes with 10 meters outdoor solar (analog) cable 2х0.75mm with MC4 solar connectors 
+It work with any solar panel - used, cracked, and even with gunshots or shrapnel damage
+*(with voltage range 18v-60v of solar panel)
+System is extremely simple and easy to install - understandable for the elderly as well as for 
+children
+Mini Solar Power System cost without panel is around 10-12€ which makes it simple and super 
+useful solution with possibility to instal it on every living household near frontline and postwar 
+(de-occupied) areas
+--- PAGE 10 ---
+
+--- PAGE 11 ---
+Decentralised power in de-occupation and post war areas
+Direct from Sun 
+without battery use
+What better to charge your laptop?
+Extra transformation 
+from 220v to 12v
+
+--- PAGE 12 ---
+Example - Test
+Gunshots solar panel 
+Trina Solar TSM-445DE17M(II) 445w 49v
+*damage by shrapnel from russian tank and gunshots 
+near Kyiv Area in 2022
+Works ﬁne, have more than 50% from the 
+starting efﬁciency
+Tested for 4 month, system with 
+gunshots panel works ﬁne, even with 
+cloudy weather
+In full power, system consume just 60-80 
+watt.
+For this case can be two system per one 
+speciﬁc solar panel 
+Same thing with used solar panel
+
+--- PAGE 13 ---
+Solar Panels Face Recycling Challenge in Europe 
+1.  Lack of Standardization in Solar Panel Composition
+2. Expensive to recycle, cheaper to keep in storage
+3. Environmental and Health Risks of Current recycling technology
+4. Regulatory Hurdles and Lack of Awareness
+European study shows continent 
+exports solar waste outside of EU
+Because it’s not waste…
+… for such areas as de-occupied regions in 
+Ukraine, areas near the front line.
+It's only one option to charge phone and to call  
+relatives in many villages in Ukraine now 
+Let’s give them a second life and lets give
+electricity to people for Humanitarian purpose Pic source bbc.com  
+--- PAGE 14 ---
+It’s happening 
+anyway, let’s give 
+this issue 
+reasonable and 
+justiﬁed 
+humanitarian 
+purpose
+Source pv-magazine
+--- PAGE 15 ---
+We don’t need new panels, we need used PV 
+for living households near the frontline  
+--- PAGE 16 ---
+About us
+Basically we are a creative community that transforms to humanitarian innovation 
+projects
+Meet us by pics and video tour 
+Photo credit:NGO “Kosmos Tabir” community in culture trip to Herson region in 2020 by ГогольTrainNow all this area are at war and occupationFirst Art train in Europe - video from Mariupol 
+--- PAGE 17 ---
+Our partners on this humanitarian mission
+Ministry 
+of Energy of Ukraine
+Institutional 
+partners
+Kherson regional 
+state administration
+Project partners
+Kharkiv regional 
+state administration
+Ofﬁce of the 
+President of Ukraine
+
+--- PAGE 18 ---
+What we need for humanitarian mission
+We are looking for partnership with strong institutions, assoacians, NGOs, solar 
+plants and companies - to collect used PV and solar equipment for Ukraine
+Used Solar Panels
+Not less than 200w and no 
+less than 50% efﬁciency left.
+Can be cracked or lightly 
+damaged 
+Also looking for Project partners to provide funding 
+to living households for our system installations
+Used Vans or Track
+Can be old or cosmetic 
+damage, but working
+Used Inverters and batteries 
+LiFePo4 batteries only, and not less 
+than 60% efﬁciency left. 
+Used solar inverters.
+Used Solar Equipment 
+Cables, fastening, crimpers
+
+--- PAGE 19 ---
+NGO “KOSMOS TABIR”
+Registration number: 43770084
+47-B Kyrylivska street, Kyiv city, 04080 
++380633377966 
+denny@kosmostabir.org 
+NGO “Kosmos Tabir” 
+innovation humanitarian solution
+Mini Solar Power System for de-occupied
+areas in Ukraine
+Denis Ugochuk 
+Head of innovation humanitarian solutions atNGO "Kosmos Tabir"
++380633377966denny@kosmostabir.org

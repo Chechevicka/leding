@@ -1,0 +1,402 @@
+/* CSS Stylesheet for NGO Kosmos Tabir Interactive Presentation Deck */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-primary: #0a1412;       /* Deepest dark green */
+  --bg-secondary: #10211d;     /* Slightly lighter green */
+  --bg-glass: rgba(16, 33, 29, 0.7);
+  --text-primary: #f7f6f2;     /* Warm off-white */
+  --text-secondary: #9cb1ac;   /* Muted gray-green */
+  --accent-green: #1f8568;     /* Bright vibrant green */
+  --accent-gold: #e2b240;      /* High-contrast gold */
+  --border-color: rgba(255, 255, 255, 0.08);
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --font-title: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   PRESENTATION LAYOUT
+   ========================================================================== */
+
+.presentation-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.slides-wrapper {
+  flex-grow: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 6rem;
+  transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
+  transform: scale(0.98);
+  z-index: 1;
+  background-color: var(--bg-primary);
+}
+
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  z-index: 2;
+}
+
+/* Slide Content Layouts */
+.slide-content {
+  width: 100%;
+  max-width: 1200px;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.slide-header {
+  width: 100%;
+  text-align: left;
+}
+
+.slide-badge {
+  font-family: var(--font-title);
+  color: var(--accent-gold);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.5rem;
+  display: block;
+  font-weight: 600;
+}
+
+.slide-title {
+  font-family: var(--font-title);
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.slide-body {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: center;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.grid-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+/* ==========================================================================
+   UI COMPONENTS
+   ========================================================================== */
+
+h3 {
+  font-family: var(--font-title);
+  font-size: 1.8rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+strong {
+  color: var(--text-primary);
+}
+
+.highlight-text {
+  color: var(--accent-gold);
+}
+
+.card {
+  background-color: var(--bg-glass);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px var(--shadow-color);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.card--accent {
+  border-left: 4px solid var(--accent-gold);
+}
+
+.bullet-list {
+  list-style: none;
+}
+
+.bullet-item {
+  position: relative;
+  padding-left: 2rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 1.2rem;
+}
+
+.bullet-item::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--accent-gold);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* Stat Display */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.stat-card {
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.stat-value {
+  font-family: var(--font-title);
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Image Visual Container */
+.visual-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 350px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.visual-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.visual-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.85));
+  padding: 1.5rem;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   NAVIGATION & CONTROLS
+   ========================================================================== */
+
+.presentation-controls {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  right: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+
+.logo-mark {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.logo-icon {
+  width: 28px;
+  height: 28px;
+  color: var(--accent-gold);
+}
+
+.logo-text {
+  font-family: var(--font-title);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.nav-btn {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.nav-btn:hover {
+  background-color: var(--accent-green);
+  border-color: var(--accent-green);
+  transform: translateY(-2px);
+}
+
+.nav-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.slide-progress {
+  font-family: var(--font-title);
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  width: 60px;
+  text-align: center;
+}
+
+.progress-bar-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: rgba(255,255,255,0.05);
+  z-index: 10;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: var(--accent-gold);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+/* ==========================================================================
+   PRINT LAYOUT (PDF EXPORT OPTIMIZATION)
+   ========================================================================== */
+
+@media print {
+  @page {
+    size: 16in 9in; /* Hardcoded landscape presentation aspect ratio */
+    margin: 0;
+  }
+
+  html, body {
+    width: 16in !important;
+    height: 9in !important;
+    overflow: visible !important;
+    background-color: var(--bg-primary) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .presentation-container {
+    display: block !important;
+    height: auto !important;
+    width: 100% !important;
+  }
+
+  .slides-wrapper {
+    display: block !important;
+    height: auto !important;
+    position: relative !important;
+  }
+
+  .slide {
+    position: relative !important;
+    display: flex !important;
+    float: none !important;
+    page-break-after: always !important;
+    page-break-inside: avoid !important;
+    width: 16in !important;
+    height: 9in !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    background-color: var(--bg-primary) !important;
+    padding: 3rem 4rem !important;
+    box-shadow: none !important;
+  }
+
+  .slide-content {
+    height: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .presentation-controls,
+  .progress-bar-container {
+    display: none !important;
+  }
+
+  .card {
+    background-color: var(--bg-secondary) !important; /* Workaround for print transparency support */
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+  }
+}

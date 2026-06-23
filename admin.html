@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kosmos Tabir — Admin Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent: #1a3c34;
+      --accent-light: rgba(26,60,52,0.08);
+      --accent-border: rgba(26,60,52,0.18);
+      --green: #2d7a5f;
+      --green-hover: #236349;
+      --bg: #0d1f1b;
+      --bg-card: #152920;
+      --bg-field: rgba(255,255,255,0.05);
+      --bg-field-focus: rgba(255,255,255,0.09);
+      --border: rgba(255,255,255,0.1);
+      --border-focus: rgba(45,122,95,0.6);
+      --text: #e8f0ec;
+      --text-muted: rgba(232,240,236,0.5);
+      --sidebar-w: 220px;
+      --radius: 10px;
+      --font: 'Inter', -apple-system, sans-serif;
+      --ease: cubic-bezier(0.4,0,0.2,1);
+    }
+
+    html, body { height: 100%; font-family: var(--font); background: var(--bg); color: var(--text); font-size: 14px; }
+
+    /* ===================== LOGIN SCREEN ===================== */
+    #loginScreen {
+      position: fixed; inset: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--bg);
+    }
+    .login-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px 44px;
+      width: 360px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+    }
+    .login-logo {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 28px;
+    }
+    .login-logo svg { width: 28px; height: 28px; color: var(--green); }
+    .login-logo span { font-weight: 700; font-size: 1rem; color: var(--text); }
+    .login-card h2 { font-size: 1.15rem; font-weight: 600; margin-bottom: 6px; }
+    .login-card p { color: var(--text-muted); font-size: 0.82rem; margin-bottom: 24px; }
+    .login-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .login-field label { font-size: 0.78rem; font-weight: 500; color: var(--text-muted); }
+    .login-field input {
+      background: var(--bg-field); border: 1px solid var(--border);
+      border-radius: 8px; padding: 10px 14px; color: var(--text);
+      font-family: var(--font); font-size: 0.9rem; outline: none;
+      transition: border-color 0.2s;
+    }
+    .login-field input:focus { border-color: var(--border-focus); background: var(--bg-field-focus); }
+    .login-error { color: #f87171; font-size: 0.78rem; margin-bottom: 12px; display: none; }
+    .btn-login {
+      width: 100%; padding: 11px; background: var(--green); color: #fff;
+      border: none; border-radius: 8px; font-family: var(--font);
+      font-size: 0.9rem; font-weight: 600; cursor: pointer;
+      transition: background 0.2s; margin-top: 4px;
+    }
+    .btn-login:hover { background: var(--green-hover); }
+
+    /* ===================== APP LAYOUT ===================== */
+    #appScreen { display: none; height: 100vh; flex-direction: column; }
+
+    /* Top bar */
+    .topbar {
+      height: 52px; background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 20px; flex-shrink: 0; z-index: 10;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 10px; }
+    .topbar-logo { display: flex; align-items: center; gap: 8px; }
+    .topbar-logo svg { width: 22px; height: 22px; color: var(--green); }
+    .topbar-logo span { font-weight: 700; font-size: 0.9rem; }
+    .topbar-badge {
+      background: rgba(45,122,95,0.2); color: var(--green);
+      font-size: 0.68rem; font-weight: 600; padding: 2px 8px;
+      border-radius: 20px; letter-spacing: 0.04em; text-transform: uppercase;
+      border: 1px solid rgba(45,122,95,0.3);
+    }
+    .topbar-right { display: flex; align-items: center; gap: 10px; }
+    .status-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--green); display: inline-block;
+      box-shadow: 0 0 6px var(--green);
+    }
+    .status-text { font-size: 0.78rem; color: var(--text-muted); }
+    .btn-save {
+      background: var(--green); color: #fff; border: none;
+      border-radius: 7px; padding: 7px 16px; font-family: var(--font);
+      font-size: 0.82rem; font-weight: 600; cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-save:hover { background: var(--green-hover); }
+    .btn-save:active { transform: scale(0.97); }
+    .btn-save:disabled { opacity: 0.5; cursor: default; }
+    .btn-view {
+      background: transparent; color: var(--text-muted); border: 1px solid var(--border);
+      border-radius: 7px; padding: 6px 14px; font-family: var(--font);
+      font-size: 0.82rem; cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 5px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-view:hover { color: var(--text); border-color: rgba(255,255,255,0.25); }
+    .btn-logout {
+      background: transparent; color: var(--text-muted); border: none;
+      font-family: var(--font); font-size: 0.78rem; cursor: pointer;
+      padding: 4px 8px; border-radius: 5px; transition: color 0.2s;
+    }
+    .btn-logout:hover { color: #f87171; }
+
+    /* Main area */
+    .main { display: flex; flex: 1; overflow: hidden; }
+
+    /* Sidebar */
+    .sidebar {
+      width: var(--sidebar-w); background: var(--bg-card);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      padding: 16px 0; flex-shrink: 0; overflow-y: auto;
+    }
+    .sidebar-section {
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-muted);
+      padding: 12px 18px 6px;
+    }
+    .sidebar-item {
+      display: flex; align-items: center; gap: 9px;
+      padding: 8px 18px; cursor: pointer; border-radius: 0;
+      transition: background 0.15s, color 0.15s;
+      color: var(--text-muted); font-size: 0.85rem;
+      border: none; background: none; width: 100%; text-align: left;
+      font-family: var(--font);
+    }
+    .sidebar-item:hover { background: rgba(255,255,255,0.04); color: var(--text); }
+    .sidebar-item.active {
+      background: rgba(45,122,95,0.14); color: #7dd3b0;
+      font-weight: 500;
+    }
+    .sidebar-item svg { width: 15px; height: 15px; flex-shrink: 0; }
+    .sidebar-divider { height: 1px; background: var(--border); margin: 10px 18px; }
+
+    /* Content panel */
+    .content {
+      flex: 1; overflow-y: auto; padding: 28px 32px;
+    }
+
+    /* Tab panels */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Panel heading */
+    .panel-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 4px; }
+    .panel-sub { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 28px; }
+
+    /* Field groups */
+    .field-group {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px; margin-bottom: 16px;
+    }
+    .field-group-title {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px;
+      padding-bottom: 10px; border-bottom: 1px solid var(--border);
+    }
+    .bilingual-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px; }
+    .bilingual-row:last-child { margin-bottom: 0; }
+    .lang-col { display: flex; flex-direction: column; gap: 5px; }
+    .lang-label {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.72rem; font-weight: 600; color: var(--text-muted);
+    }
+    .lang-flag {
+      font-size: 0.9em; display: inline-block;
+    }
+    .field-label { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 3px; font-weight: 500; }
+    .field-input, .field-textarea {
+      background: var(--bg-field); border: 1px solid var(--border);
+      border-radius: 6px; color: var(--text); font-family: var(--font);
+      font-size: 0.83rem; outline: none; width: 100%;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .field-input { padding: 8px 12px; }
+    .field-textarea { padding: 8px 12px; resize: vertical; line-height: 1.5; }
+    .field-input:focus, .field-textarea:focus {
+      border-color: var(--border-focus); background: var(--bg-field-focus);
+    }
+
+    /* Stats row */
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 16px; }
+    .stat-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+    }
+    .stat-card-label { font-size: 0.7rem; color: var(--text-muted); font-weight: 500; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.04em; }
+    .stat-number-input {
+      background: var(--bg-field); border: 1px solid var(--border);
+      border-radius: 6px; color: var(--text); font-family: var(--font);
+      font-size: 1.4rem; font-weight: 700; width: 100%; padding: 8px 12px;
+      outline: none; transition: border-color 0.2s;
+    }
+    .stat-number-input:focus { border-color: var(--border-focus); }
+    .stat-suffix-row { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+    .stat-suffix-label { font-size: 0.72rem; color: var(--text-muted); }
+    .stat-suffix-input {
+      background: var(--bg-field); border: 1px solid var(--border);
+      border-radius: 5px; color: var(--text); font-family: var(--font);
+      font-size: 0.82rem; width: 50px; padding: 4px 8px; outline: none;
+      transition: border-color 0.2s;
+    }
+    .stat-suffix-input:focus { border-color: var(--border-focus); }
+    .stat-zero-note { font-size: 0.7rem; color: var(--text-muted); margin-top: 4px; font-style: italic; }
+
+    /* Toast notification */
+    #toast {
+      position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+      background: #1e4d3e; color: #7dd3b0;
+      border: 1px solid rgba(125,211,176,0.3);
+      border-radius: 10px; padding: 12px 20px;
+      font-size: 0.85rem; font-weight: 500;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      transform: translateY(80px); opacity: 0;
+      transition: transform 0.3s var(--ease), opacity 0.3s;
+      pointer-events: none;
+    }
+    #toast.show { transform: translateY(0); opacity: 1; }
+    #toast.error { background: #4d1e1e; color: #f87171; border-color: rgba(248,113,113,0.3); }
+
+    /* Bottom bar */
+    .bottombar {
+      height: 32px; background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: flex-end;
+      padding: 0 20px; flex-shrink: 0;
+    }
+    .bottombar-text { font-size: 0.72rem; color: var(--text-muted); }
+    .bottombar-text span { color: var(--green); }
+
+    /* Images panel styling */
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 10px;
+    }
+    .image-card-edit {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.2s;
+    }
+    .image-card-edit:hover {
+      border-color: rgba(255,255,255,0.2);
+    }
+    .image-card-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .image-card-path {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-family: monospace;
+      word-break: break-all;
+    }
+    .image-preview-container {
+      height: 120px;
+      background: rgba(0,0,0,0.3);
+      border: 1px dashed var(--border);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .image-preview-container.tall {
+      height: 160px;
+    }
+    .image-preview-container img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    .image-card-edit input[type="file"] {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===================== LOGIN SCREEN ===================== -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">
+      <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+        <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2" fill="none" opacity="0.4"/>
+        <circle cx="16" cy="16" r="7" fill="currentColor"/>
+        <path d="M16 2v4M16 26v4M2 16h4M26 16h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span>Kosmos Tabir</span>
+    </div>
+    <h2>Адмін-панель</h2>
+    <p>Введіть пароль для доступу до редактора сайту</p>
+    <div id="loginError" class="login-error">Невірний пароль. Спробуйте ще раз.</div>
+    <div class="login-field">
+      <label>Пароль</label>
+      <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <button class="btn-login" id="loginBtn">Увійти</button>
+  </div>
+</div>
+
+<!-- ===================== APP SCREEN ===================== -->
+<div id="appScreen">
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-logo">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+          <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2" fill="none" opacity="0.4"/>
+          <circle cx="16" cy="16" r="7" fill="currentColor"/>
+          <path d="M16 2v4M16 26v4M2 16h4M26 16h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span>Kosmos Tabir</span>
+      </div>
+      <div class="topbar-badge">Admin Panel</div>
+    </div>
+    <div class="topbar-right">
+      <div class="status-dot"></div>
+      <span class="status-text" id="statusText">Готово</span>
+      <a href="/" target="_blank" class="btn-view">
+        <svg fill="none" viewBox="0 0 16 16" width="13" height="13" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M6 3H3a1 1 0 00-1 1v9a1 1 0 001 1h9a1 1 0 001-1v-3M9 1h6m0 0v6m0-6L7 9"/></svg>
+        Переглянути сайт
+      </a>
+      <button class="btn-save" id="saveBtn" onclick="saveContent()">💾 Зберегти зміни</button>
+      <button class="btn-logout" onclick="logout()">Вийти</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <!-- Sidebar -->
+    <nav class="sidebar" aria-label="Admin navigation">
+      <div class="sidebar-section">Контент</div>
+      <button class="sidebar-item active" onclick="switchTab('hero', this)">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        Hero
+      </button>
+      <button class="sidebar-item" onclick="switchTab('problem', this)">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+        Проблема
+      </button>
+      <button class="sidebar-item" onclick="switchTab('solution', this)">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        Рішення
+      </button>
+      <button class="sidebar-item" onclick="switchTab('proof', this)">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        Кейс (Proof)
+      </button>
+      <button class="sidebar-item" onclick="switchTab('euro', this)">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+        EU Panels
+      </button>
+      <button class="sidebar-item" onclick="switchTab('tiers', this)">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        Тіри партнерства
+      </button>
+      <button class="sidebar-item" onclick="switchTab('images', this)">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        📸 Зображення
+      </button>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-section">Загальне</div>
+      <button class="sidebar-item" onclick="switchTab('cred', this)">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+        Про нас
+      </button>
+      <button class="sidebar-item" onclick="switchTab('footer', this)">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7"/></svg>
+        Футер
+      </button>
+    </nav>
+
+    <!-- Content area -->
+    <div class="content" id="contentArea">
+
+      <!-- HERO TAB -->
+      <div class="tab-panel active" id="tab-hero">
+        <div class="panel-title">🏠 Hero — перший екран</div>
+        <div class="panel-sub">Заголовок, підзаголовок, кнопки та статистика</div>
+
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-card-label">🏘️ Кількість сіл</div>
+            <input class="stat-number-input" type="number" id="stat-villages-val" placeholder="0" min="0">
+            <div class="stat-suffix-row">
+              <span class="stat-suffix-label">Суфікс:</span>
+              <input class="stat-suffix-input" type="text" id="stat-villages-sfx" placeholder="+">
+            </div>
+            <div class="stat-zero-note">Введіть 0 — відобразиться «—»</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">🏠 Будинків</div>
+            <input class="stat-number-input" type="number" id="stat-households-val" placeholder="1000" min="0">
+            <div class="stat-suffix-row">
+              <span class="stat-suffix-label">Суфікс:</span>
+              <input class="stat-suffix-input" type="text" id="stat-households-sfx" placeholder="+">
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">🏛️ Адмінбудівель</div>
+            <input class="stat-number-input" type="number" id="stat-admin-val" placeholder="40" min="0">
+            <div class="stat-suffix-row">
+              <span class="stat-suffix-label">Суфікс:</span>
+              <input class="stat-suffix-input" type="text" id="stat-admin-sfx" placeholder="+">
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field-group-title">Заголовок та підзаголовок</div>
+          <div class="bilingual-row">
+            <div class="lang-col">
+              <div class="lang-label"><span class="lang-flag">🇺🇦</span> Українська</div>
+              <div class="field-label">hero_title</div>
+              <textarea class="field-textarea" rows="2" data-key="hero_title" data-lang="ua"></textarea>
+            </div>
+            <div class="lang-col">
+              <div class="lang-label"><span class="lang-flag">🇬🇧</span> English</div>
+              <div class="field-label">hero_title</div>
+              <textarea class="field-textarea" rows="2" data-key="hero_title" data-lang="en"></textarea>
+            </div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col">
+              <div class="field-label">hero_subhead</div>
+              <textarea class="field-textarea" rows="4" data-key="hero_subhead" data-lang="ua"></textarea>
+            </div>
+            <div class="lang-col">
+              <div class="field-label">hero_subhead</div>
+              <textarea class="field-textarea" rows="4" data-key="hero_subhead" data-lang="en"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field-group-title">Підписи до лічильників</div>
+          <div class="bilingual-row">
+            <div class="lang-col">
+              <div class="field-label">hero_stat_1 (села)</div>
+              <input class="field-input" type="text" data-key="hero_stat_1" data-lang="ua">
+            </div>
+            <div class="lang-col">
+              <div class="field-label">hero_stat_1</div>
+              <input class="field-input" type="text" data-key="hero_stat_1" data-lang="en">
+            </div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col">
+              <div class="field-label">hero_stat_2 (будинки)</div>
+              <input class="field-input" type="text" data-key="hero_stat_2" data-lang="ua">
+            </div>
+            <div class="lang-col">
+              <div class="field-label">hero_stat_2</div>
+              <input class="field-input" type="text" data-key="hero_stat_2" data-lang="en">
+            </div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col">
+              <div class="field-label">hero_stat_3 (адмінбудівлі)</div>
+              <input class="field-input" type="text" data-key="hero_stat_3" data-lang="ua">
+            </div>
+            <div class="lang-col">
+              <div class="field-label">hero_stat_3</div>
+              <input class="field-input" type="text" data-key="hero_stat_3" data-lang="en">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROBLEM TAB -->
+      <div class="tab-panel" id="tab-problem">
+        <div class="panel-title">❗ Проблема</div>
+        <div class="panel-sub">Цитати, заголовок, описи</div>
+        <div class="field-group">
+          <div class="field-group-title">Заголовок секції</div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">problem_title</div><textarea class="field-textarea" rows="2" data-key="problem_title" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">problem_title</div><textarea class="field-textarea" rows="2" data-key="problem_title" data-lang="en"></textarea></div>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-title">Опис 1 і 2</div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">problem_desc_1</div><textarea class="field-textarea" rows="4" data-key="problem_desc_1" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">problem_desc_1</div><textarea class="field-textarea" rows="4" data-key="problem_desc_1" data-lang="en"></textarea></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">problem_desc_2</div><textarea class="field-textarea" rows="3" data-key="problem_desc_2" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">problem_desc_2</div><textarea class="field-textarea" rows="3" data-key="problem_desc_2" data-lang="en"></textarea></div>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-title">Цитата</div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">problem_quote</div><textarea class="field-textarea" rows="3" data-key="problem_quote" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">problem_quote</div><textarea class="field-textarea" rows="3" data-key="problem_quote" data-lang="en"></textarea></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">problem_source</div><input class="field-input" type="text" data-key="problem_source" data-lang="ua"></div>
+            <div class="lang-col"><div class="field-label">problem_source</div><input class="field-input" type="text" data-key="problem_source" data-lang="en"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOLUTION TAB -->
+      <div class="tab-panel" id="tab-solution">
+        <div class="panel-title">💡 Рішення</div>
+        <div class="panel-sub">Заголовок і 4 блоки особливостей</div>
+        <div class="field-group">
+          <div class="field-group-title">Заголовок та опис</div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">solution_title</div><textarea class="field-textarea" rows="2" data-key="solution_title" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">solution_title</div><textarea class="field-textarea" rows="2" data-key="solution_title" data-lang="en"></textarea></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">solution_desc</div><textarea class="field-textarea" rows="4" data-key="solution_desc" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">solution_desc</div><textarea class="field-textarea" rows="4" data-key="solution_desc" data-lang="en"></textarea></div>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-title">Особливість 1</div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">sol_feat_1_title</div><input class="field-input" type="text" data-key="sol_feat_1_title" data-lang="ua"></div>
+            <div class="lang-col"><div class="field-label">sol_feat_1_title</div><input class="field-input" type="text" data-key="sol_feat_1_title" data-lang="en"></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">sol_feat_1_desc</div><textarea class="field-textarea" rows="3" data-key="sol_feat_1_desc" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">sol_feat_1_desc</div><textarea class="field-textarea" rows="3" data-key="sol_feat_1_desc" data-lang="en"></textarea></div>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-title">Особливість 2</div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">sol_feat_2_title</div><input class="field-input" type="text" data-key="sol_feat_2_title" data-lang="ua"></div>
+            <div class="lang-col"><div class="field-label">sol_feat_2_title</div><input class="field-input" type="text" data-key="sol_feat_2_title" data-lang="en"></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">sol_feat_2_desc</div><textarea class="field-textarea" rows="3" data-key="sol_feat_2_desc" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">sol_feat_2_desc</div><textarea class="field-textarea" rows="3" data-key="sol_feat_2_desc" data-lang="en"></textarea></div>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-title">Особливість 3</div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">sol_feat_3_title</div><input class="field-input" type="text" data-key="sol_feat_3_title" data-lang="ua"></div>
+            <div class="lang-col"><div class="field-label">sol_feat_3_title</div><input class="field-input" type="text" data-key="sol_feat_3_title" data-lang="en"></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">sol_feat_3_desc</div><textarea class="field-textarea" rows="3" data-key="sol_feat_3_desc" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">sol_feat_3_desc</div><textarea class="field-textarea" rows="3" data-key="sol_feat_3_desc" data-lang="en"></textarea></div>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-title">Особливість 4</div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">sol_feat_4_title</div><input class="field-input" type="text" data-key="sol_feat_4_title" data-lang="ua"></div>
+            <div class="lang-col"><div class="field-label">sol_feat_4_title</div><input class="field-input" type="text" data-key="sol_feat_4_title" data-lang="en"></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">sol_feat_4_desc</div><textarea class="field-textarea" rows="3" data-key="sol_feat_4_desc" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">sol_feat_4_desc</div><textarea class="field-textarea" rows="3" data-key="sol_feat_4_desc" data-lang="en"></textarea></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROOF TAB -->
+      <div class="tab-panel" id="tab-proof">
+        <div class="panel-title">🔬 Польовий кейс (Proof)</div>
+        <div class="panel-sub">Заголовок, опис та підпис кейсу — легко змінюються</div>
+        <div class="field-group">
+          <div class="field-group-title">Заголовок кейсу</div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">proof_title</div><textarea class="field-textarea" rows="2" data-key="proof_title" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">proof_title</div><textarea class="field-textarea" rows="2" data-key="proof_title" data-lang="en"></textarea></div>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-title">Опис кейсу</div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">proof_desc</div><textarea class="field-textarea" rows="5" data-key="proof_desc" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">proof_desc</div><textarea class="field-textarea" rows="5" data-key="proof_desc" data-lang="en"></textarea></div>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-title">Підпис під фото</div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">proof_caption</div><textarea class="field-textarea" rows="4" data-key="proof_caption" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">proof_caption</div><textarea class="field-textarea" rows="4" data-key="proof_caption" data-lang="en"></textarea></div>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-title">Статистика кейсу</div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">proof_stat_2_val (локація)</div><input class="field-input" type="text" data-key="proof_stat_2_val" data-lang="ua"></div>
+            <div class="lang-col"><div class="field-label">proof_stat_2_val</div><input class="field-input" type="text" data-key="proof_stat_2_val" data-lang="en"></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">proof_stat_2_lbl</div><input class="field-input" type="text" data-key="proof_stat_2_lbl" data-lang="ua"></div>
+            <div class="lang-col"><div class="field-label">proof_stat_2_lbl</div><input class="field-input" type="text" data-key="proof_stat_2_lbl" data-lang="en"></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">proof_stat_4_val (виживаність)</div><input class="field-input" type="text" data-key="proof_stat_4_val" data-lang="ua"></div>
+            <div class="lang-col"><div class="field-label">proof_stat_4_val</div><input class="field-input" type="text" data-key="proof_stat_4_val" data-lang="en"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EURO TAB -->
+      <div class="tab-panel" id="tab-euro">
+        <div class="panel-title">♻️ EU Panels — Переробка</div>
+        <div class="panel-sub">Секція про списані сонячні панелі з Європи</div>
+        <div class="field-group">
+          <div class="field-group-title">Заголовки та описи</div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">euro_title</div><textarea class="field-textarea" rows="2" data-key="euro_title" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">euro_title</div><textarea class="field-textarea" rows="2" data-key="euro_title" data-lang="en"></textarea></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">euro_desc_1</div><textarea class="field-textarea" rows="4" data-key="euro_desc_1" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">euro_desc_1</div><textarea class="field-textarea" rows="4" data-key="euro_desc_1" data-lang="en"></textarea></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">euro_desc_2</div><textarea class="field-textarea" rows="4" data-key="euro_desc_2" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">euro_desc_2</div><textarea class="field-textarea" rows="4" data-key="euro_desc_2" data-lang="en"></textarea></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">euro_reframe_title</div><input class="field-input" type="text" data-key="euro_reframe_title" data-lang="ua"></div>
+            <div class="lang-col"><div class="field-label">euro_reframe_title</div><input class="field-input" type="text" data-key="euro_reframe_title" data-lang="en"></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">euro_reframe_desc</div><textarea class="field-textarea" rows="3" data-key="euro_reframe_desc" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">euro_reframe_desc</div><textarea class="field-textarea" rows="3" data-key="euro_reframe_desc" data-lang="en"></textarea></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIERS TAB -->
+      <div class="tab-panel" id="tab-tiers">
+        <div class="panel-title">🤝 Тіри партнерства</div>
+        <div class="panel-sub">5 карток підтримки</div>
+        <div class="field-group">
+          <div class="field-group-title">Заголовок секції</div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">tiers_title</div><input class="field-input" type="text" data-key="tiers_title" data-lang="ua"></div>
+            <div class="lang-col"><div class="field-label">tiers_title</div><input class="field-input" type="text" data-key="tiers_title" data-lang="en"></div>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-title">Tier 1 — Фінансування</div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">tier_1_title</div><input class="field-input" type="text" data-key="tier_1_title" data-lang="ua"></div>
+            <div class="lang-col"><div class="field-label">tier_1_title</div><input class="field-input" type="text" data-key="tier_1_title" data-lang="en"></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">tier_1_desc</div><textarea class="field-textarea" rows="3" data-key="tier_1_desc" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">tier_1_desc</div><textarea class="field-textarea" rows="3" data-key="tier_1_desc" data-lang="en"></textarea></div>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-title">Tier 2 — Сонячні панелі</div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">tier_2_title</div><input class="field-input" type="text" data-key="tier_2_title" data-lang="ua"></div>
+            <div class="lang-col"><div class="field-label">tier_2_title</div><input class="field-input" type="text" data-key="tier_2_title" data-lang="en"></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">tier_2_desc</div><textarea class="field-textarea" rows="3" data-key="tier_2_desc" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">tier_2_desc</div><textarea class="field-textarea" rows="3" data-key="tier_2_desc" data-lang="en"></textarea></div>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-title">Tier 3 — Транспорт</div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">tier_3_title</div><input class="field-input" type="text" data-key="tier_3_title" data-lang="ua"></div>
+            <div class="lang-col"><div class="field-label">tier_3_title</div><input class="field-input" type="text" data-key="tier_3_title" data-lang="en"></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">tier_3_desc</div><textarea class="field-textarea" rows="3" data-key="tier_3_desc" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">tier_3_desc</div><textarea class="field-textarea" rows="3" data-key="tier_3_desc" data-lang="en"></textarea></div>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-title">Tier 4 — Обладнання</div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">tier_4_title</div><input class="field-input" type="text" data-key="tier_4_title" data-lang="ua"></div>
+            <div class="lang-col"><div class="field-label">tier_4_title</div><input class="field-input" type="text" data-key="tier_4_title" data-lang="en"></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">tier_4_desc</div><textarea class="field-textarea" rows="3" data-key="tier_4_desc" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">tier_4_desc</div><textarea class="field-textarea" rows="3" data-key="tier_4_desc" data-lang="en"></textarea></div>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-title">Tier 5 — Освітня програма</div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">tier_5_title</div><input class="field-input" type="text" data-key="tier_5_title" data-lang="ua"></div>
+            <div class="lang-col"><div class="field-label">tier_5_title</div><input class="field-input" type="text" data-key="tier_5_title" data-lang="en"></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">tier_5_desc</div><textarea class="field-textarea" rows="3" data-key="tier_5_desc" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">tier_5_desc</div><textarea class="field-textarea" rows="3" data-key="tier_5_desc" data-lang="en"></textarea></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IMAGES TAB -->
+      <div class="tab-panel" id="tab-images">
+        <div class="panel-title">📸 Зображення на сайті</div>
+        <div class="panel-sub">Завантаження та заміна фотографій, логотипів та картинок на сайті</div>
+
+        <!-- Логотипи -->
+        <div class="field-group">
+          <div class="field-group-title">Логотипи партнерів (SVG та WebP)</div>
+          <div class="image-grid">
+            <div class="image-card-edit">
+              <div class="image-card-label">Razom for Ukraine</div>
+              <div class="image-card-path">assets/logos/partner-energy.webp</div>
+              <div class="image-preview-container">
+                <img id="preview-partner-energy" src="/assets/logos/partner-energy.webp" alt="Razom logo">
+              </div>
+              <input type="file" accept="image/webp,image/png,image/jpeg" onchange="uploadImage(this, 'assets/logos/partner-energy.webp', 'preview-partner-energy')">
+            </div>
+
+            <div class="image-card-edit">
+              <div class="image-card-label">Херсонська ОДА</div>
+              <div class="image-card-path">assets/logos/partner-kherson.webp</div>
+              <div class="image-preview-container">
+                <img id="preview-partner-kherson" src="/assets/logos/partner-kherson.webp" alt="Kherson logo">
+              </div>
+              <input type="file" accept="image/webp,image/png,image/jpeg" onchange="uploadImage(this, 'assets/logos/partner-kherson.webp', 'preview-partner-kherson')">
+            </div>
+
+            <div class="image-card-edit">
+              <div class="image-card-label">Харківська ОДА</div>
+              <div class="image-card-path">assets/logos/partner-kharkiv.webp</div>
+              <div class="image-preview-container">
+                <img id="preview-partner-kharkiv" src="/assets/logos/partner-kharkiv.webp" alt="Kharkiv logo">
+              </div>
+              <input type="file" accept="image/webp,image/png,image/jpeg" onchange="uploadImage(this, 'assets/logos/partner-kharkiv.webp', 'preview-partner-kharkiv')">
+            </div>
+
+            <div class="image-card-edit">
+              <div class="image-card-label">Офіс Президента</div>
+              <div class="image-card-path">assets/logos/partner-president.webp</div>
+              <div class="image-preview-container">
+                <img id="preview-partner-president" src="/assets/logos/partner-president.webp" alt="President logo">
+              </div>
+              <input type="file" accept="image/webp,image/png,image/jpeg" onchange="uploadImage(this, 'assets/logos/partner-president.webp', 'preview-partner-president')">
+            </div>
+
+            <div class="image-card-edit">
+              <div class="image-card-label">DCA (Dan Church Aid)</div>
+              <div class="image-card-path">assets/logos/partner-dca.svg</div>
+              <div class="image-preview-container">
+                <img id="preview-partner-dca" src="/assets/logos/partner-dca.svg" alt="DCA logo">
+              </div>
+              <input type="file" accept="image/svg+xml" onchange="uploadImage(this, 'assets/logos/partner-dca.svg', 'preview-partner-dca')">
+            </div>
+
+            <div class="image-card-edit">
+              <div class="image-card-label">CUF (Canada Ukraine Foundation)</div>
+              <div class="image-card-path">assets/logos/partner-cuf.svg</div>
+              <div class="image-preview-container">
+                <img id="preview-partner-cuf" src="/assets/logos/partner-cuf.svg" alt="CUF logo">
+              </div>
+              <input type="file" accept="image/svg+xml" onchange="uploadImage(this, 'assets/logos/partner-cuf.svg', 'preview-partner-cuf')">
+            </div>
+          </div>
+        </div>
+
+        <!-- Світлини кейсу та місій -->
+        <div class="field-group">
+          <div class="field-group-title">Фотографії кейсу та місій (WebP)</div>
+          <div class="image-grid">
+            <div class="image-card-edit">
+              <div class="image-card-label">Велике фото кейсу</div>
+              <div class="image-card-path">assets/images/shrapnel-panel-large.webp</div>
+              <div class="image-preview-container tall">
+                <img id="preview-shrapnel-panel-large" src="/assets/images/shrapnel-panel-large.webp" alt="Large panel photo">
+              </div>
+              <input type="file" accept="image/webp,image/png,image/jpeg" onchange="uploadImage(this, 'assets/images/shrapnel-panel-large.webp', 'preview-shrapnel-panel-large')">
+            </div>
+
+            <div class="image-card-edit">
+              <div class="image-card-label">Деталь осколку 1</div>
+              <div class="image-card-path">assets/images/shrapnel-panel-detail-1.webp</div>
+              <div class="image-preview-container tall">
+                <img id="preview-detail-1" src="/assets/images/shrapnel-panel-detail-1.webp" alt="Detail 1">
+              </div>
+              <input type="file" accept="image/webp,image/png,image/jpeg" onchange="uploadImage(this, 'assets/images/shrapnel-panel-detail-1.webp', 'preview-detail-1')">
+            </div>
+
+            <div class="image-card-edit">
+              <div class="image-card-label">Деталь осколку 2</div>
+              <div class="image-card-path">assets/images/shrapnel-panel-detail-2.webp</div>
+              <div class="image-preview-container tall">
+                <img id="preview-detail-2" src="/assets/images/shrapnel-panel-detail-2.webp" alt="Detail 2">
+              </div>
+              <input type="file" accept="image/webp,image/png,image/jpeg" onchange="uploadImage(this, 'assets/images/shrapnel-panel-detail-2.webp', 'preview-detail-2')">
+            </div>
+
+            <div class="image-card-edit">
+              <div class="image-card-label">Деталь осколку 3</div>
+              <div class="image-card-path">assets/images/shrapnel-panel-detail-3.webp</div>
+              <div class="image-preview-container tall">
+                <img id="preview-detail-3" src="/assets/images/shrapnel-panel-detail-3.webp" alt="Detail 3">
+              </div>
+              <input type="file" accept="image/webp,image/png,image/jpeg" onchange="uploadImage(this, 'assets/images/shrapnel-panel-detail-3.webp', 'preview-detail-3')">
+            </div>
+
+            <div class="image-card-edit">
+              <div class="image-card-label">Кульовий прокол панелі</div>
+              <div class="image-card-path">assets/images/gunshot-panel.webp</div>
+              <div class="image-preview-container tall">
+                <img id="preview-gunshot-panel" src="/assets/images/gunshot-panel.webp" alt="Gunshot panel">
+              </div>
+              <input type="file" accept="image/webp,image/png,image/jpeg" onchange="uploadImage(this, 'assets/images/gunshot-panel.webp', 'preview-gunshot-panel')">
+            </div>
+
+            <div class="image-card-edit">
+              <div class="image-card-label">GogolTrain Креатив (2020)</div>
+              <div class="image-card-path">assets/images/gogoltrain-creative.webp</div>
+              <div class="image-preview-container">
+                <img id="preview-gogoltrain" src="/assets/images/gogoltrain-creative.webp" alt="GogolTrain">
+              </div>
+              <input type="file" accept="image/webp,image/png,image/jpeg" onchange="uploadImage(this, 'assets/images/gogoltrain-creative.webp', 'preview-gogoltrain')">
+            </div>
+
+            <div class="image-card-edit">
+              <div class="image-card-label">Назар Ботвинько</div>
+              <div class="image-card-path">assets/images/denis-ugochuk.webp</div>
+              <div class="image-preview-container tall">
+                <img id="preview-denis" src="/assets/images/denis-ugochuk.webp" alt="Nazar Botvynko">
+              </div>
+              <input type="file" accept="image/webp,image/png,image/jpeg" onchange="uploadImage(this, 'assets/images/denis-ugochuk.webp', 'preview-denis')">
+            </div>
+          </div>
+        </div>
+
+        <!-- Зображення карток підтримки (Tiers) -->
+        <div class="field-group">
+          <div class="field-group-title">Зображення тірів підтримки (WebP)</div>
+          <div class="image-grid">
+            <div class="image-card-edit">
+              <div class="image-card-label">Фінансування села (Tier 1)</div>
+              <div class="image-card-path">assets/images/tier-funding.webp</div>
+              <div class="image-preview-container">
+                <img id="preview-tier-funding" src="/assets/images/tier-funding.webp" alt="Tier 1">
+              </div>
+              <input type="file" accept="image/webp,image/png,image/jpeg" onchange="uploadImage(this, 'assets/images/tier-funding.webp', 'preview-tier-funding')">
+            </div>
+
+            <div class="image-card-edit">
+              <div class="image-card-label">Передати сонячні панелі (Tier 2)</div>
+              <div class="image-card-path">assets/images/tier-solar.webp</div>
+              <div class="image-preview-container">
+                <img id="preview-tier-solar" src="/assets/images/tier-solar.webp" alt="Tier 2">
+              </div>
+              <input type="file" accept="image/webp,image/png,image/jpeg" onchange="uploadImage(this, 'assets/images/tier-solar.webp', 'preview-tier-solar')">
+            </div>
+
+            <div class="image-card-edit">
+              <div class="image-card-label">Передати транспорт (Tier 3)</div>
+              <div class="image-card-path">assets/images/tier-vehicle.webp</div>
+              <div class="image-preview-container">
+                <img id="preview-tier-vehicle" src="/assets/images/tier-vehicle.webp" alt="Tier 3">
+              </div>
+              <input type="file" accept="image/webp,image/png,image/jpeg" onchange="uploadImage(this, 'assets/images/tier-vehicle.webp', 'preview-tier-vehicle')">
+            </div>
+
+            <div class="image-card-edit">
+              <div class="image-card-label">Передати обладнання (Tier 4)</div>
+              <div class="image-card-path">assets/images/tier-equipment.webp</div>
+              <div class="image-preview-container">
+                <img id="preview-tier-equipment" src="/assets/images/tier-equipment.webp" alt="Tier 4">
+              </div>
+              <input type="file" accept="image/webp,image/png,image/jpeg" onchange="uploadImage(this, 'assets/images/tier-equipment.webp', 'preview-tier-equipment')">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CRED / ABOUT TAB -->
+      <div class="tab-panel" id="tab-cred">
+        <div class="panel-title">🏢 Про нас</div>
+        <div class="panel-sub">Секція партнерів та наша історія</div>
+        <div class="field-group">
+          <div class="field-group-title">Державні партнери</div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">cred_title</div><input class="field-input" type="text" data-key="cred_title" data-lang="ua"></div>
+            <div class="lang-col"><div class="field-label">cred_title</div><input class="field-input" type="text" data-key="cred_title" data-lang="en"></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">cred_sub</div><textarea class="field-textarea" rows="3" data-key="cred_sub" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">cred_sub</div><textarea class="field-textarea" rows="3" data-key="cred_sub" data-lang="en"></textarea></div>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-title">Назви партнерів (спливаючі підказки)</div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">Разом для України (partner_energy)</div><input class="field-input" type="text" data-key="partner_energy" data-lang="ua"></div>
+            <div class="lang-col"><div class="field-label">Razom for Ukraine (partner_energy)</div><input class="field-input" type="text" data-key="partner_energy" data-lang="en"></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">Херсонська адміністрація (partner_kherson)</div><input class="field-input" type="text" data-key="partner_kherson" data-lang="ua"></div>
+            <div class="lang-col"><div class="field-label">Kherson Administration (partner_kherson)</div><input class="field-input" type="text" data-key="partner_kherson" data-lang="en"></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">Харківська адміністрація (partner_kharkiv)</div><input class="field-input" type="text" data-key="partner_kharkiv" data-lang="ua"></div>
+            <div class="lang-col"><div class="field-label">Kharkiv Administration (partner_kharkiv)</div><input class="field-input" type="text" data-key="partner_kharkiv" data-lang="en"></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">Офіс Президента (partner_president)</div><input class="field-input" type="text" data-key="partner_president" data-lang="ua"></div>
+            <div class="lang-col"><div class="field-label">Office of the President (partner_president)</div><input class="field-input" type="text" data-key="partner_president" data-lang="en"></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">DCA (partner_dca)</div><input class="field-input" type="text" data-key="partner_dca" data-lang="ua"></div>
+            <div class="lang-col"><div class="field-label">DCA (partner_dca)</div><input class="field-input" type="text" data-key="partner_dca" data-lang="en"></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">CUF (partner_cuf)</div><input class="field-input" type="text" data-key="partner_cuf" data-lang="ua"></div>
+            <div class="lang-col"><div class="field-label">CUF (partner_cuf)</div><input class="field-input" type="text" data-key="partner_cuf" data-lang="en"></div>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-title">Цитата та опис організації</div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">about_quote</div><textarea class="field-textarea" rows="2" data-key="about_quote" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">about_quote</div><textarea class="field-textarea" rows="2" data-key="about_quote" data-lang="en"></textarea></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">about_desc</div><textarea class="field-textarea" rows="5" data-key="about_desc" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">about_desc</div><textarea class="field-textarea" rows="5" data-key="about_desc" data-lang="en"></textarea></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOOTER TAB -->
+      <div class="tab-panel" id="tab-footer">
+        <div class="panel-title">📄 Футер</div>
+        <div class="panel-sub">Підпис бренду та юридична інформація</div>
+        <div class="field-group">
+          <div class="field-group-title">Підпис бренду</div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">footer_brand_sub</div><textarea class="field-textarea" rows="2" data-key="footer_brand_sub" data-lang="ua"></textarea></div>
+            <div class="lang-col"><div class="field-label">footer_brand_sub</div><textarea class="field-textarea" rows="2" data-key="footer_brand_sub" data-lang="en"></textarea></div>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field-group-title">Адреса та реєстрація</div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">footer_addr</div><input class="field-input" type="text" data-key="footer_addr" data-lang="ua"></div>
+            <div class="lang-col"><div class="field-label">footer_addr</div><input class="field-input" type="text" data-key="footer_addr" data-lang="en"></div>
+          </div>
+          <div class="bilingual-row">
+            <div class="lang-col"><div class="field-label">footer_reg</div><input class="field-input" type="text" data-key="footer_reg" data-lang="ua"></div>
+            <div class="lang-col"><div class="field-label">footer_reg</div><input class="field-input" type="text" data-key="footer_reg" data-lang="en"></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+
+  <div class="bottombar">
+    <span class="bottombar-text" id="lastSaved">Зміни не збережено</span>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ===================== UPLOAD IMAGE =====================
+async function uploadImage(inputEl, targetPath, previewImgId) {
+  if (!inputEl.files || inputEl.files.length === 0) return;
+  const file = inputEl.files[0];
+  
+  // Basic front-end check
+  if (targetPath.endsWith('.svg') && !file.name.toLowerCase().endsWith('.svg')) {
+    showToast('Помилка: очікується файл формату SVG', true);
+    inputEl.value = '';
+    return;
+  }
+  
+  const statusEl = document.getElementById('statusText');
+  statusEl.textContent = 'Завантаження фото...';
+  inputEl.disabled = true;
+  
+  try {
+    const res = await fetch('/api/upload-image', {
+      method: 'POST',
+      headers: {
+        'X-Target-Path': targetPath
+      },
+      credentials: 'same-origin',
+      body: file
+    });
+    
+    if (res.ok) {
+      // Force reload preview image
+      const previewImg = document.getElementById(previewImgId);
+      if (previewImg) {
+        previewImg.src = '/' + targetPath + '?v=' + Date.now();
+      }
+      showToast('✓ Фото успішно завантажено та оптимізовано!');
+      statusEl.textContent = 'Збережено';
+    } else if (res.status === 401) {
+      showToast('Сесія закінчилась. Увійдіть знову.', true);
+      setTimeout(() => location.reload(), 2000);
+    } else {
+      const errData = await res.json().catch(() => ({}));
+      showToast('Помилка завантаження: ' + (errData.message || res.statusText), true);
+      statusEl.textContent = 'Помилка';
+    }
+  } catch(e) {
+    showToast('Помилка з\'єднання: ' + e.message, true);
+    statusEl.textContent = 'Помилка';
+  } finally {
+    inputEl.disabled = false;
+    inputEl.value = ''; // Reset input so it can trigger onchange again for same file
+  }
+}
+
+// ===================== STATE =====================
+let contentData = null;
+
+// ===================== LOGIN =====================
+document.getElementById('loginPassword').addEventListener('keydown', e => {
+  if (e.key === 'Enter') login();
+});
+
+async function login() {
+  const pw = document.getElementById('loginPassword').value;
+  const btn = document.getElementById('loginBtn');
+  const err = document.getElementById('loginError');
+  btn.textContent = 'Вхід...'; btn.disabled = true; err.style.display = 'none';
+
+  try {
+    const res = await fetch('/api/admin-login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify({ password: pw })
+    });
+    if (res.ok) {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('appScreen').style.display = 'flex';
+      await loadContent();
+    } else {
+      err.style.display = 'block';
+      document.getElementById('loginPassword').value = '';
+    }
+  } catch(e) {
+    err.textContent = 'Помилка з\'єднання. Спробуйте пізніше.'; err.style.display = 'block';
+  }
+  btn.textContent = 'Увійти'; btn.disabled = false;
+}
+document.getElementById('loginBtn').addEventListener('click', login);
+
+async function logout() {
+  await fetch('/api/admin-logout', { method: 'POST', credentials: 'same-origin' });
+  location.reload();
+}
+
+// ===================== LOAD CONTENT =====================
+async function loadContent() {
+  try {
+    const res = await fetch('/api/content', { credentials: 'same-origin' });
+    contentData = await res.json();
+    populateFields();
+  } catch(e) {
+    showToast('Не вдалося завантажити контент', true);
+  }
+}
+
+function populateFields() {
+  if (!contentData) return;
+
+  // Stats
+  const s = contentData.stats || {};
+  setVal('stat-villages-val', (s.villages || {}).value || 0);
+  setVal('stat-villages-sfx', (s.villages || {}).suffix || '+');
+  setVal('stat-households-val', (s.households || {}).value || 1000);
+  setVal('stat-households-sfx', (s.households || {}).suffix || '+');
+  setVal('stat-admin-val', (s.admin_buildings || {}).value || 40);
+  setVal('stat-admin-sfx', (s.admin_buildings || {}).suffix || '+');
+
+  // All bilingual fields
+  const t = contentData.translations || {};
+  document.querySelectorAll('[data-key][data-lang]').forEach(el => {
+    const key = el.getAttribute('data-key');
+    const lang = el.getAttribute('data-lang');
+    const val = (t[lang] || {})[key] || '';
+    el.value = val;
+  });
+}
+
+function setVal(id, val) {
+  const el = document.getElementById(id);
+  if (el) el.value = val;
+}
+
+// ===================== COLLECT & SAVE =====================
+function collectData() {
+  if (!contentData || !contentData.stats || !contentData.translations) {
+    showToast('Дані не завантажено. Оновіть сторінку.', true);
+    return null;
+  }
+  // Stats
+  contentData.stats.villages.value = parseInt(document.getElementById('stat-villages-val').value) || 0;
+  contentData.stats.villages.suffix = document.getElementById('stat-villages-sfx').value || '+';
+  contentData.stats.households.value = parseInt(document.getElementById('stat-households-val').value) || 0;
+  contentData.stats.households.suffix = document.getElementById('stat-households-sfx').value || '+';
+  contentData.stats.admin_buildings.value = parseInt(document.getElementById('stat-admin-val').value) || 0;
+  contentData.stats.admin_buildings.suffix = document.getElementById('stat-admin-sfx').value || '+';
+
+  // Translations
+  document.querySelectorAll('[data-key][data-lang]').forEach(el => {
+    const key = el.getAttribute('data-key');
+    const lang = el.getAttribute('data-lang');
+    if (!contentData.translations[lang]) contentData.translations[lang] = {};
+    contentData.translations[lang][key] = el.value;
+  });
+
+  return contentData;
+}
+
+async function saveContent() {
+  const btn = document.getElementById('saveBtn');
+  const statusEl = document.getElementById('statusText');
+  btn.disabled = true; btn.textContent = 'Збереження...';
+  statusEl.textContent = 'Зберігаємо...';
+
+  try {
+    const data = collectData();
+    if (!data) return;
+    const res = await fetch('/api/content', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify(data)
+    });
+
+    if (res.ok) {
+      const now = new Date().toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
+      document.getElementById('lastSaved').textContent = 'Збережено о ' + now + ' ✓';
+      statusEl.textContent = 'Збережено';
+      showToast('✓ Зміни збережено! Оновіть сторінку сайту.');
+    } else if (res.status === 401) {
+      showToast('Сесія закінчилась. Увійдіть знову.', true);
+      setTimeout(() => location.reload(), 2000);
+    } else {
+      showToast('Помилка збереження', true);
+      statusEl.textContent = 'Помилка';
+    }
+  } catch(e) {
+    showToast('Помилка з\'єднання', true);
+    statusEl.textContent = 'Помилка';
+  }
+
+  btn.disabled = false; btn.textContent = '💾 Зберегти зміни';
+}
+
+// ===================== TAB SWITCHING =====================
+function switchTab(tabId, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.sidebar-item').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tabId).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ===================== TOAST =====================
+let toastTimer = null;
+function showToast(msg, isError = false) {
+  clearTimeout(toastTimer);
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = isError ? 'error' : '';
+  requestAnimationFrame(() => { t.classList.add('show'); });
+  toastTimer = setTimeout(() => { t.classList.remove('show'); }, 3000);
+}
+</script>
+</body>
+</html>

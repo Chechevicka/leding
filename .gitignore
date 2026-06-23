@@ -1,0 +1,13 @@
+# Environment & secrets
+.env
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Scratch / temp
+scratch/
