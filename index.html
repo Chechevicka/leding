@@ -554,27 +554,28 @@
         <h2 id="modalTitle" data-i18n="modal_title">Become a Partner</h2>
         <p class="modal-subtitle" id="modalSubtitle" data-i18n="modal_sub">Fill out the quick form below and our innovation team will contact you directly within 24 hours.</p>
         
-        <form class="modal-form" id="partnerForm">
+        <form class="modal-form" id="partnerForm" name="contact" method="POST" data-netlify="true">
+          <input type="hidden" name="form-name" value="contact">
           <input type="hidden" name="tier" id="partnerTierInput" value="general">
           
           <div class="form-group">
             <label for="form-name" data-i18n="form_lbl_name">Contact Name</label>
-            <input type="text" id="form-name" placeholder="Nazar Botvynko" required>
+            <input type="text" name="name" id="form-name" placeholder="Nazar Botvynko" required>
           </div>
 
           <div class="form-group">
             <label for="form-org" data-i18n="form_lbl_org">Organization / Company</label>
-            <input type="text" id="form-org" placeholder="e.g. EU Solar Alliance" required>
+            <input type="text" name="org" id="form-org" placeholder="e.g. EU Solar Alliance" required>
           </div>
           
           <div class="form-group">
             <label for="form-email" data-i18n="form_lbl_email">Email Address</label>
-            <input type="email" id="form-email" placeholder="partner@domain.org" pattern="[^\s@]+@[^\s@]+\.[^\s@]+" title="Введіть коректну адресу електронної пошти, наприклад: name@domain.com" required>
+            <input type="email" name="email" id="form-email" placeholder="partner@domain.org" pattern="[^\s@]+@[^\s@]+\.[^\s@]+" title="Введіть коректну адресу електронної пошти, наприклад: name@domain.com" required>
           </div>
           
           <div class="form-group">
             <label for="form-type" data-i18n="form_lbl_type">Partnership Type</label>
-            <select id="form-type" required>
+            <select name="type" id="form-type" required>
               <option value="general" data-i18n="form_opt_gen">General Institutional Cooperation</option>
               <option value="funding" data-i18n="form_opt_fund">Financial Support / Grant</option>
               <option value="panels" data-i18n="form_opt_panel">Donate Solar Panels (min 200W, 80%+ efficiency)</option>
@@ -587,7 +588,7 @@
           
           <div class="form-group">
             <label for="form-message" data-i18n="form_lbl_msg">Brief Proposal / Logistics Notes</label>
-            <textarea id="form-message" rows="4" placeholder="How would you like to cooperate? (Capacity, logistics, timing details...)" required></textarea>
+            <textarea name="message" id="form-message" rows="4" placeholder="How would you like to cooperate? (Capacity, logistics, timing details...)" required></textarea>
           </div>
           
           <button type="submit" class="btn btn-primary" data-i18n="form_btn_submit">Submit Inquiry</button>

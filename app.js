@@ -165,18 +165,12 @@ partnerForm.addEventListener('submit', (e) => {
   submitBtn.disabled = true;
   submitBtn.innerHTML = currentLanguage === 'en' ? 'Sending…' : 'Надсилання…';
 
-  const payload = {
-    name: document.getElementById('form-name').value,
-    org: document.getElementById('form-org').value,
-    email: document.getElementById('form-email').value,
-    type: partnerTypeSelect.value,
-    message: document.getElementById('form-message').value
-  };
+  const formData = new FormData(partnerForm);
 
-  fetch('/api/partner-inquiry', {
+  fetch('/', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams(formData).toString()
   })
   .then(r => r.json())
   .then(() => {
