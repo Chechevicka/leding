@@ -23,6 +23,18 @@
 </head>
 <body>
 
+<!-- Hidden form for Netlify bot detection (required for AJAX submissions) -->
+<form name="contact" netlify netlify-honeypot="bot-field" hidden>
+  <input name="form-name" type="hidden" value="contact">
+  <input name="bot-field">
+  <input name="tier">
+  <input name="name">
+  <input name="org">
+  <input name="email">
+  <input name="type">
+  <textarea name="message"></textarea>
+</form>
+
   <!-- ==========================================================================
      1. HEADER / NAVIGATION
      ========================================================================== -->
