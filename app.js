@@ -244,7 +244,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   // CTA buttons → open modal
   document.querySelectorAll('.open-cta-modal').forEach(btn => {
     btn.addEventListener('click', (e) => {
-      openModal(e.currentTarget.getAttribute('data-tier') || 'general');
+      const tier = e.currentTarget.getAttribute('data-tier') || 'general';
+      openModal(tier);
+      if (typeof trackEvent === 'function') trackEvent('cta_click', { tier });
     });
   });
 
@@ -257,4 +259,29 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
   });
+});
+
+// --- Analytics Tracker ---
+function trackEvent(event, extraData = {}) {
+  const data = {
+    event: event,
+    language: localStorage.getItem('siteLang') || 'ua',
+    referrer: document.referrer,
+    ...extraData
+  };
+  fetch('/api/track', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  }).catch(err => console.error('Tracking error:', err));
+}
+
+// Track pageview on load
+window.addEventListener('DOMContentLoaded', () => {
+  let isUnique = false;
+  if (!sessionStorage.getItem('visited')) {
+    sessionStorage.setItem('visited', 'true');
+    isUnique = true;
+  }
+  trackEvent('pageview', { is_unique: isUnique });
 });

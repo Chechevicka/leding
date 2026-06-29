@@ -16,6 +16,7 @@ import time
 from PIL import Image
 
 CONTENT_FILE = 'content.json'
+ANALYTICS_FILE = 'analytics.json'
 
 # In-memory session store: token -> timestamp
 _sessions = {}
@@ -47,6 +48,19 @@ def read_content():
 
 def write_content(data):
     with open(CONTENT_FILE, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+def read_analytics():
+    if os.path.exists(ANALYTICS_FILE):
+        with open(ANALYTICS_FILE, 'r', encoding='utf-8') as f:
+            try:
+                return json.load(f)
+            except json.JSONDecodeError:
+                pass
+    return {"pageviews": {"total": 0, "unique": 0}, "referrers": {}, "languages": {"ua": 0, "en": 0}, "cta_clicks": {}}
+
+def write_analytics(data):
+    with open(ANALYTICS_FILE, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 class CustomHandler(SimpleHTTPRequestHandler):
@@ -91,6 +105,13 @@ class CustomHandler(SimpleHTTPRequestHandler):
             data = read_content()
             self.send_json(200, data)
             return
+        if self.path == '/api/analytics':
+            if not self.is_authenticated():
+                self.send_json(401, {'status': 'error', 'message': 'Unauthorized'})
+                return
+            data = read_analytics()
+            self.send_json(200, data)
+            return
         # Serve admin page
         super().do_GET()
 
@@ -109,6 +130,40 @@ class CustomHandler(SimpleHTTPRequestHandler):
             return
 
         post_data = self.rfile.read(content_length)
+
+        # ---- Analytics tracking (public)
+        if self.path == '/api/track':
+            try:
+                data = json.loads(post_data.decode('utf-8'))
+                stats = read_analytics()
+                
+                event = data.get('event')
+                if event == 'pageview':
+                    stats['pageviews']['total'] += 1
+                    if data.get('is_unique'):
+                        stats['pageviews']['unique'] += 1
+                    
+                    lang = data.get('language', 'ua')
+                    stats['languages'][lang] = stats['languages'].get(lang, 0) + 1
+                    
+                    ref = data.get('referrer', '')
+                    if ref:
+                        from urllib.parse import urlparse
+                        domain = urlparse(ref).netloc
+                        if domain:
+                            stats['referrers'][domain] = stats['referrers'].get(domain, 0) + 1
+                            
+                elif event == 'cta_click':
+                    tier = data.get('tier', 'unknown')
+                    stats['cta_clicks'][tier] = stats['cta_clicks'].get(tier, 0) + 1
+                    
+                write_analytics(stats)
+                self.send_json(200, {'status': 'ok'})
+            except Exception as e:
+                print(f'❌ Error in /api/track: {e}')
+                self.send_json(500, {'status': 'error'})
+            return
+
 
         # ---- Admin login
         if self.path == '/api/admin-login':

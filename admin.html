@@ -390,6 +390,10 @@
       </button>
       <div class="sidebar-divider"></div>
       <div class="sidebar-section">Загальне</div>
+      <button class="sidebar-item" onclick="switchTab('analytics', this); loadAnalytics();">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+        📊 Аналітика
+      </button>
       <button class="sidebar-item" onclick="switchTab('cred', this)">
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
         Про нас
@@ -988,6 +992,56 @@
         </div>
       </div>
 
+      <!-- ANALYTICS TAB -->
+      <div class="tab-panel" id="tab-analytics">
+        <div class="panel-title">📊 Аналітика</div>
+        <div class="panel-sub">Статистика відвідувань та інтересу користувачів</div>
+
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-card-label">👁️ Загальні перегляди</div>
+            <div style="font-size: 2rem; font-weight: 700; color: var(--accent); margin: 10px 0;" id="analytics-total">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">👤 Унікальні відвідувачі</div>
+            <div style="font-size: 2rem; font-weight: 700; color: #10b981; margin: 10px 0;" id="analytics-unique">0</div>
+          </div>
+        </div>
+
+        <div class="stats-row" style="margin-top: 30px;">
+          <div class="stat-card" style="flex: 1.5;">
+            <div class="stat-card-label">🔗 Звідки приходять (Referrers)</div>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 15px; text-align: left; font-size: 0.95rem;">
+              <thead>
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); color: var(--dark-muted);">
+                  <th style="padding: 8px 0;">Джерело</th>
+                  <th style="padding: 8px 0; text-align: right;">Переходів</th>
+                </tr>
+              </thead>
+              <tbody id="analytics-referrers">
+                <tr><td colspan="2" style="padding: 10px 0; color: #888;">Немає даних</td></tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="stat-card" style="flex: 1;">
+            <div class="stat-card-label">🌍 Мова сайту</div>
+            <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 12px;" id="analytics-langs">
+              <div>🇺🇦 Українська: 0</div>
+              <div>🇬🇧 Англійська: 0</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group" style="margin-top: 30px;">
+          <div class="field-group-title">Кліки по кнопках партнерства</div>
+          <div class="panel-sub">Показує, який тип партнерства зацікавив користувачів найбільше.</div>
+          <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 15px;" id="analytics-clicks">
+            <div style="color: #888;">Немає даних</div>
+          </div>
+        </div>
+      </div>
+
     </div><!-- /content -->
   </div><!-- /main -->
 
@@ -1099,6 +1153,56 @@ async function loadContent() {
     populateFields();
   } catch(e) {
     showToast('Не вдалося завантажити контент', true);
+  }
+}
+
+async function loadAnalytics() {
+  try {
+    const res = await fetch('/api/analytics', { credentials: 'same-origin' });
+    if (!res.ok) return;
+    const data = await res.json();
+    
+    document.getElementById('analytics-total').textContent = data.pageviews.total || 0;
+    document.getElementById('analytics-unique').textContent = data.pageviews.unique || 0;
+    
+    // Languages
+    const langs = data.languages || {};
+    document.getElementById('analytics-langs').innerHTML = `
+      <div style="display: flex; justify-content: space-between; padding: 6px 12px; background: rgba(255,255,255,0.05); border-radius: 6px;"><span>🇺🇦 Українська</span> <strong>${langs.ua || 0}</strong></div>
+      <div style="display: flex; justify-content: space-between; padding: 6px 12px; background: rgba(255,255,255,0.05); border-radius: 6px;"><span>🇬🇧 English</span> <strong>${langs.en || 0}</strong></div>
+    `;
+
+    // Referrers
+    const refs = data.referrers || {};
+    const refHtml = Object.entries(refs).sort((a,b) => b[1]-a[1]).map(([domain, count]) => `
+      <tr>
+        <td style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);"><a href="http://${domain}" target="_blank" style="color: #cbd5e1; text-decoration: none;">${domain}</a></td>
+        <td style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); text-align: right; font-weight: bold;">${count}</td>
+      </tr>
+    `).join('');
+    document.getElementById('analytics-referrers').innerHTML = refHtml || '<tr><td colspan="2" style="padding: 10px 0; color: #888;">Немає даних</td></tr>';
+
+    // Clicks
+    const clicks = data.cta_clicks || {};
+    const tierNames = {
+      'general': 'Загальна співпраця',
+      'funding': 'Фінансування',
+      'panels': 'Сонячні панелі',
+      'vehicles': 'Транспорт',
+      'equipment': 'Обладнання',
+      'education': 'Освіта',
+      'team': 'Команда'
+    };
+    const clickHtml = Object.entries(clicks).sort((a,b) => b[1]-a[1]).map(([tier, count]) => `
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;">
+        <span style="font-weight: 500;">${tierNames[tier] || tier}</span>
+        <span style="background: var(--accent); color: #000; padding: 2px 10px; border-radius: 20px; font-weight: bold; font-size: 0.85rem;">${count} кліків</span>
+      </div>
+    `).join('');
+    document.getElementById('analytics-clicks').innerHTML = clickHtml || '<div style="color: #888;">Немає даних</div>';
+    
+  } catch(e) {
+    console.error('Analytics load error:', e);
   }
 }
 
