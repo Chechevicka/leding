@@ -172,10 +172,13 @@ partnerForm.addEventListener('submit', (e) => {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: new URLSearchParams(formData).toString()
   })
-  .then(r => r.json())
-  .then(() => {
-    modalFormContainer.style.display = 'none';
-    modalSuccessContainer.style.display = 'flex';
+  .then(r => {
+    if (r.ok) {
+      modalFormContainer.style.display = 'none';
+      modalSuccessContainer.style.display = 'flex';
+    } else {
+      throw new Error('Form submission failed');
+    }
   })
   .catch(() => {
     submitBtn.disabled = false;
