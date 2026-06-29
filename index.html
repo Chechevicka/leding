@@ -554,8 +554,9 @@
         <h2 id="modalTitle" data-i18n="modal_title">Become a Partner</h2>
         <p class="modal-subtitle" id="modalSubtitle" data-i18n="modal_sub">Fill out the quick form below and our innovation team will contact you directly within 24 hours.</p>
         
-        <form class="modal-form" id="partnerForm" name="contact" method="POST" data-netlify="true">
+        <form class="modal-form" id="partnerForm" name="contact" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="contact">
+          <p class="hidden" style="display:none;"><label>Don't fill this out: <input name="bot-field"></label></p>
           <input type="hidden" name="tier" id="partnerTierInput" value="general">
           
           <div class="form-group">
