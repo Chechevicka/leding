@@ -1,7 +1,7 @@
 const https = require('https');
+const nodemailer = require('nodemailer');
 
 exports.handler = async function(event) {
-  // Netlify triggers this function automatically on every form submission
   const { payload } = JSON.parse(event.body);
   const { name, org, email, type, message, tier } = payload.data || {};
 
@@ -29,12 +29,62 @@ exports.handler = async function(event) {
     } catch (err) {
       console.error('❌ Telegram error:', err.message);
     }
-  } else {
-    console.log('⚠️ Telegram not configured (missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID)');
+  }
+
+  // ---- Email via SMTP ----
+  const smtpHost = process.env.SMTP_HOST;
+  const smtpPort = process.env.SMTP_PORT || '587';
+  const smtpUser = process.env.SMTP_USER;
+  const smtpPass = process.env.SMTP_PASSWORD;
+  const toEmail = process.env.TO_EMAIL || 'nb@kosmostabir.org';
+
+  if (smtpHost && smtpUser && smtpPass) {
+    try {
+      const transporter = nodemailer.createTransport({
+        host: smtpHost,
+        port: parseInt(smtpPort),
+        secure: parseInt(smtpPort) === 465,
+        auth: {
+          user: smtpUser,
+          pass: smtpPass
+        }
+      });
+
+      const htmlBody = `
+        <html>
+          <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+            <h2 style="color: #1a3c34; border-bottom: 2px solid #1a3c34; padding-bottom: 8px;">Нова заявка на партнерство</h2>
+            <p><strong>Ім'я контактної особи:</strong> ${escHtml(name)}</p>
+            <p><strong>Організація / Компанія:</strong> ${escHtml(org)}</p>
+            <p><strong>Електронна пошта:</strong> <a href="mailto:${escHtml(email)}">${escHtml(email)}</a></p>
+            <p><strong>Напрямок співпраці:</strong> ${escHtml(type || tier)}</p>
+            <div style="background: #f7f6f2; padding: 15px; border-radius: 6px; border: 1px solid #e5e5e5; margin-top: 15px;">
+              <strong>Повідомлення / Пропозиція:</strong><br>
+              ${escHtml(message).replace(/\n/g, '<br>')}
+            </div>
+          </body>
+        </html>
+      `;
+
+      await transporter.sendMail({
+        from: smtpUser,
+        to: toEmail,
+        subject: `Нова заявка на партнерство: ${name || '—'} (${org || '—'})`,
+        html: htmlBody
+      });
+      console.log('✅ Email sent to', toEmail);
+    } catch (err) {
+      console.error('❌ Email error:', err.message);
+    }
   }
 
   return { statusCode: 200, body: 'OK' };
 };
+
+function escHtml(str) {
+  if (!str) return '—';
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
 
 function httpPost(url, data) {
   return new Promise((resolve, reject) => {

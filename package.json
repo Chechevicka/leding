@@ -1,0 +1,8 @@
+{
+  "name": "kosmostabir-netlify",
+  "version": "1.0.0",
+  "description": "Netlify dependencies for NGO Kosmos Tabir",
+  "dependencies": {
+    "nodemailer": "^6.9.13"
+  }
+}
